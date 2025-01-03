@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Filmes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #001f3f, #00796b);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar a {
+            color: #e2e8f0;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .logo {
+            width: 250px;
+            margin-top: 150px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .search-bar {
+            margin-top: 30px;
+            position: relative;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            font-size: 16px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #2563eb;
+            background-color: rgba(0, 0, 0, 0.8);
+            outline: none;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .poster-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .poster-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .poster {
+            width: 200px;
+            height: 300px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .poster:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .poster-name {
+            color: #e3f2fd;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" onclick="filterByGenre('all')">Todos</a>
+        <a href="#" onclick="filterByGenre('Ação')">Ação</a>
+        <a href="#" onclick="filterByGenre('Aventura')">Aventura</a>
+        <a href="#" onclick="filterByGenre('Comédia')">Comédia</a>
+        <a href="#" onclick="filterByGenre('Drama')">Drama</a>
+        <a href="#" onclick="filterByGenre('Ficção')">Ficção Científica</a>
+    </div>
+
+    <img class="logo" src="https://i.ibb.co/61b7LQH/Stream-02-01-2025.png" alt="Gameflix Logo">
+
+    <div class="search-bar">
+        <input type="text" placeholder="Pesquise por filmes..." id="search" oninput="searchGames()">
+        <button onclick="searchGames()"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="container">
+        <!-- Posters serão renderizados aqui -->
+    </div>
+
+    <footer>
+        <p>Desenvolvido por <a href="#">Seu Nome</a>. Todos os direitos reservados © 2025.</p>
+    </footer>
+
+    <script>
+        const posters = [
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo (2004)', url: 'https://www.dropbox.com/scl/fi/d2szrjeumwbbmlchsufqd/Plano-de-Voo-720p-D4V1.mkv?rlkey=ivx2cs862kuljb0woo3p293im&e=2&st=mgezau4d&dl=0', genre: 'Ação' },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser Você (2008)', url: 'https://www.dropbox.com/scl/fi/s5sfrk89bt3qzbhvdjsmy/TINHA-QUE-SER-VOC-_Emma-Thompson-e-Doustin.mp4?rlkey=kbc308mhbonqdl0rnabfq59qg&st=bd4rzxnr&dl=0', genre: 'Drama' },
+            { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Aventura...', url: 'https://www.dropbox.com/scl/fi/ordkvh1h21t3co7lazoxb/Frozen-Uma-Aventura-Congelante-2013-4K-2160p-Dual-udio-Encoder-by-Carlos-Jos-WWW.BLUDV.TV.mkv?rlkey=1xkc1dizv0f7dc0r0vadsbrbs&st=i47o2o04&dl=0', genre: 'Aventura' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.dropbox.com/scl/fi/t0pfkd65ukf67bmxb54q3/Frozen.II.2020.2160p.UHD.BluRay.x265-DUAL.COMANDO.TO.mkv?rlkey=w1xmwkpzuw9qx8osposv93dgn&st=wc2riqxq&dl=0', genre: 'Aventura' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.dropbox.com/scl/fi/398gmgpv2ll62tpkyb8v8/Para-Sempre.mp4?rlkey=fpso8zdqff32erliw6sa814ow&st=cgfiklww&dl=0' }
+        ];
+
+        const container = document.querySelector('.container');
+
+        function renderPosters(data) {
+            container.innerHTML = ''; // Limpa o container
+            data.forEach(poster => {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('poster-wrapper');
+
+                const img = document.createElement('div');
+                img.classList.add('poster');
+                img.style.backgroundImage = `url(${poster.image})`;
+                img.addEventListener('click', () => {
+                    window.open(poster.url, '_blank');
+                });
+
+                const name = document.createElement('div');
+                name.classList.add('poster-name');
+                name.textContent = poster.name;
+
+                wrapper.appendChild(img);
+                wrapper.appendChild(name);
+                container.appendChild(wrapper);
+            });
+        }
+
+        function filterByGenre(genre) {
+            const filtered = genre === 'all' ? posters : posters.filter(poster => poster.genre === genre);
+            renderPosters(filtered);
+        }
+
+        function searchGames() {
+            const query = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.poster-wrapper').forEach(wrapper => {
+                const name = wrapper.querySelector('.poster-name').textContent.toLowerCase();
+                wrapper.style.display = name.includes(query) ? '' : 'none';
+            });
+        }
+
+        renderPosters(posters);
+    </script>
+</body>
+</html>
