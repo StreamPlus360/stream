@@ -170,6 +170,34 @@
             text-decoration: none;
             font-weight: bold;
         }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -194,56 +222,74 @@
     </div>
 
     <footer>
-        <p>Desenvolvido por <a href="#">Seu Nome</a>. Todos os direitos reservados © 2025.</p>
+        <p>Desenvolvido por <a href="#">David A. Mascaro</a>. Todos os direitos reservados © 2025.</p>
     </footer>
+
+    <div class="modal" id="videoModal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe id="videoFrame" src="" allowfullscreen></iframe>
+    </div>
 
     <script>
         const posters = [
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo (2004)', url: 'https://www.dropbox.com/scl/fi/d2szrjeumwbbmlchsufqd/Plano-de-Voo-720p-D4V1.mkv?rlkey=ivx2cs862kuljb0woo3p293im&e=2&st=mgezau4d&dl=0', genre: 'Ação' },
-            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser Você (2008)', url: 'https://www.dropbox.com/scl/fi/s5sfrk89bt3qzbhvdjsmy/TINHA-QUE-SER-VOC-_Emma-Thompson-e-Doustin.mp4?rlkey=kbc308mhbonqdl0rnabfq59qg&st=bd4rzxnr&dl=0', genre: 'Drama' },
-            { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Aventura...', url: 'https://youtu.be/k8ZGZK-3faY?si=Z9AcV1jqmd4zBasI', genre: 'Aventura' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.dropbox.com/scl/fi/t0pfkd65ukf67bmxb54q3/Frozen.II.2020.2160p.UHD.BluRay.x265-DUAL.COMANDO.TO.mkv?rlkey=w1xmwkpzuw9qx8osposv93dgn&st=wc2riqxq&dl=0', genre: 'Aventura' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.dropbox.com/scl/fi/398gmgpv2ll62tpkyb8v8/Para-Sempre.mp4?rlkey=fpso8zdqff32erliw6sa814ow&st=cgfiklww&dl=0' }
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo (2004)', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser Você (2008)', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama' },
+            { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Aventura...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Aventura' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Aventura' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.youtube.com/embed/awWaP3S4qw' }
         ];
 
         const container = document.querySelector('.container');
+        const modal = document.getElementById('videoModal');
+        const videoFrame = document.getElementById('videoFrame');
 
         function renderPosters(data) {
             container.innerHTML = ''; // Limpa o container
             data.forEach(poster => {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('poster-wrapper');
+                const posterElement = document.createElement('div');
+                posterElement.classList.add('poster');
+                posterElement.style.backgroundImage = `url(${poster.image})`;
 
-                const img = document.createElement('div');
-                img.classList.add('poster');
-                img.style.backgroundImage = `url(${poster.image})`;
-                img.addEventListener('click', () => {
-                    window.open(poster.url, '_blank');
-                });
+                const posterName = document.createElement('div');
+                posterName.classList.add('poster-name');
+                posterName.innerText = poster.name;
 
-                const name = document.createElement('div');
-                name.classList.add('poster-name');
-                name.textContent = poster.name;
+                wrapper.appendChild(posterElement);
+                wrapper.appendChild(posterName); // Nome agora é renderizado abaixo da capa
 
-                wrapper.appendChild(img);
-                wrapper.appendChild(name);
+                posterElement.addEventListener('click', () => openModal(poster.url));
+
                 container.appendChild(wrapper);
             });
         }
 
-        function filterByGenre(genre) {
-            const filtered = genre === 'all' ? posters : posters.filter(poster => poster.genre === genre);
-            renderPosters(filtered);
+        function openModal(videoUrl) {
+            modal.style.display = 'flex'; // Exibe o modal
+            videoFrame.src = videoUrl; // Define o URL do vídeo no iframe
+        }
+
+        function closeModal() {
+            modal.style.display = 'none'; // Fecha o modal
+            videoFrame.src = ''; // Limpa o conteúdo do vídeo
         }
 
         function searchGames() {
-            const query = document.getElementById('search').value.toLowerCase();
-            document.querySelectorAll('.poster-wrapper').forEach(wrapper => {
-                const name = wrapper.querySelector('.poster-name').textContent.toLowerCase();
-                wrapper.style.display = name.includes(query) ? '' : 'none';
-            });
+            const searchQuery = document.getElementById('search').value.toLowerCase();
+            const filteredPosters = posters.filter(poster => 
+                poster.name.toLowerCase().includes(searchQuery) || 
+                poster.genre.toLowerCase().includes(searchQuery)
+            );
+            renderPosters(filteredPosters);
         }
 
+        function filterByGenre(genre) {
+            const filteredPosters = genre === 'all' ? posters : posters.filter(poster => poster.genre === genre);
+            renderPosters(filteredPosters);
+        }
+
+        // Inicializa a página com todos os filmes
         renderPosters(posters);
     </script>
 </body>
