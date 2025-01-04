@@ -204,11 +204,13 @@
     <div class="navbar">
         <a href="#" onclick="filterByGenre('all')">Todos</a>
         <a href="#" onclick="filterByGenre('Ação')">Ação</a>
+        <a href="#" onclick="filterByGenre('Animação')">Animação</a>
         <a href="#" onclick="filterByGenre('Aventura')">Aventura</a>
         <a href="#" onclick="filterByGenre('Comédia')">Comédia</a>
         <a href="#" onclick="filterByGenre('Drama')">Drama</a>
         <a href="#" onclick="filterByGenre('Ficção')">Ficção Científica</a>
         <a href="#" onclick="filterByGenre('Terror')">Terror</a>
+        <a href="#" onclick="filterByGenre('Romance')">Romance</a>
 
     </div>
 
@@ -236,19 +238,43 @@
         const posters = [
             { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
             { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama' },
-            { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Avent...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Aventura' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Aventura' },
+            { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Avent...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Animação' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Animação' },
             { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.youtube.com/embed/IawWaP3S4qw', genre: 'Drama' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/d/da/Leap_year_poster.jpg', name: 'Casa Comigo?', url: 'https://www.youtube.com/embed/XcokcEA_ats', genre: 'Comédia' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/d/da/Leap_year_poster.jpg', name: 'Casa Comigo?', url: 'https://www.youtube.com/embed/XcokcEA_ats', genre: 'Romance' },
             { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/13/77/19872396.jpg', name: 'O Melhor Amigo da...', url: 'https://www.youtube.com/embed/HI_GR8kKMuI', genre: 'Comédia' },
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/32/17/19874294.jpg', name: 'A Ultima Música', url: 'https://www.youtube.com/embed/NT5xS26Fla8', genre: 'Drama' },
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/32/17/19874294.jpg', name: 'A Ultima Música', url: 'https://www.youtube.com/embed/NT5xS26Fla8', genre: 'Romance' },
             { image: 'https://lumiere-a.akamaihd.net/v1/images/image003_13a0fcb9.jpeg?region=0,0,1080,1350', name: 'Descedentes: A Ascen...', url: 'https://www.youtube.com/embed/4mW2g725l3I', genre: 'Comédia' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/43bedd3729685ea324304d157fe76364027579527a9ccea323fb3868f075c3bc.jpg', name: 'Remanescentes...', url: 'https://www.youtube.com/embed/06UDLSRHRTw', genre: 'Drama' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Comédia' },
-            { image: 'https://br.web.img2.acsta.net/img/63/b2/63b2d305f79a69eb0a3bd837e8706399.jpg', name: 'Frozen: Febre Con...', url: 'https://www.youtube.com/embed/X4zGnU5wk4o', genre: 'Comédia' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Animação' },
+            { image: 'https://br.web.img2.acsta.net/img/63/b2/63b2d305f79a69eb0a3bd837e8706399.jpg', name: 'Frozen: Febre Con...', url: 'https://www.youtube.com/embed/X4zGnU5wk4o', genre: 'Animação' },
             { image: 'https://br.web.img3.acsta.net/img/bb/88/bb88410fdc3fdf712a1259aec1d4fb3a.jfif', name: 'Casamento San...', url: 'https://www.youtube.com/embed/mBz6rIQwNFc', genre: 'Terror' },
+            { image: 'https://lumiere-a.akamaihd.net/v1/images/gife454xsaa8wv-_3e8071e7.jpeg?region=0%2C0%2C1638%2C2048', name: 'Divertidamente 2', url: 'https://www.youtube.com/embed/oJ0dBw42NbY', genre: 'Animação' },
+            { image: 'https://i.uai.com.br/AqHYLwQKSv-RhQTkPJns9P6y8BE=/750x0/imgsapp2.uai.com.br/app/noticia_133890394703/2023/05/03/322578/poster-de-elementos_2_186724.jpeg', name: 'Elementos', url: 'https://www.youtube.com/embed/uDe-Id4euWw', genre: 'Animação' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgw5ePYJL2ttHUGHAuityQ7zU55o94_3FPD5VqFlQFBdPzXuR8bSkO1o-RjfjiwPoTmnE&usqp=CAU', name: 'Roubo Nas Alturas', url: 'https://www.youtube.com/embed/iBcK0HbGqk0', genre: 'Comédia' },
+            { image: 'https://i.ibb.co/y6s9fTH/gife454xsaa8wv-3e8071e7.webp', name: 'Divertidamente', url: 'https://www.youtube.com/embed/aqIwVJSwauQ', genre: 'Animação' },
+            { image: 'https://image.tmdb.org/t/p/w500/orA2sYnjNcGHJ9h88CWa2Vs7VlR.jpg', name: 'Garganta do Diabo', url: 'https://www.youtube.com/embed/_gM1XjC-z3U', genre: 'Ação' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/20/10/19/22/23/2564835.jpg', name: 'Destruição final: O...', url: 'https://www.youtube.com/embed/lrWHPvO5I_8', genre: 'Ação' },
+            { image: 'https://dozitos.com/wp-content/uploads/2022/12/Identidade-300x450.jpg', name: 'Identidade', url: 'https://www.youtube.com/embed/uXHTZyyxw1Y', genre: 'Terror' },
+            { image: 'https://limontorrents.com/storage/2021/01/Boneco-do-Mal.jpg', name: 'Boneco do Mal', url: 'https://www.youtube.com/embed/fs8_cRneg2w', genre: 'Terror' },
+            { image: 'https://limontorrents.com/storage/2021/01/Brahms-Boneco-do-Mal-II.jpg', name: 'Brahms: Boneco do...', url: 'https://player.vimeo.com/video/1043963415', genre: 'Terror' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/89/82/94/20068344.jpg', name: '12 Horas', url: 'https://www.youtube.com/embed/XfetiAY0upI', genre: 'Ação' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/87/32/63/20028692.jpg', name: 'Cartas Para Julieta', url: 'https://www.youtube.com/embed/uAX0YQh5n3Q', genre: 'Romance' },
+            { image: 'https://limontorrents.com/storage/2020/10/Megatubarao.jpg', name: 'Megalodon', url: 'https://www.youtube.com/embed/L9UgIsTjU1o', genre: 'Ação' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/30/64/20395594.jpg', name: 'Poseidon', url: 'https://www.youtube.com/embed/2sfbnViKJ5A', genre: 'Drama' },
+            { image: 'https://m.media-amazon.com/images/M/MV5BNzg3NjFkNjgtNDZkNy00MDBiLTg3ZTYtZmI2NGY3NzEyY2IzXkEyXkFqcGc@._V1_.jpg', name: 'Só Você', url: 'https://filesyncs.com/?id=2148&sub=https://subs.warezcdn.link/156444-PTB.srt&subtitle=Portugu%C3%AAs', genre: 'Romance' },
+            { image: 'https://musicart.xboxlive.com/7/57356700-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'Megalodon 2', url: 'https://www.youtube.com/embed/LXqtj2ywe5M', genre: 'Ação' },
+            { image: 'https://i.ibb.co/JkxD3Sd/20028692.webp', name: 'Gritos Mortais', url: 'https://www.youtube.com/embed/F-wYHvCH52Q', genre: 'Terror' },
+            { image: 'https://i.ibb.co/y5LFz5J/20028692.webp', name: 'Floresta Maldita', url: 'https://player.vimeo.com/video/1043978184', genre: 'Terror' },
+            { image: 'https://i.ibb.co/bLdq7Tz/20028692.webp', name: 'O Chamado', url: 'https://www.youtube.com/embed/gfsl6ufRwg8', genre: 'Terror' },
+            { image: 'https://i.ibb.co/NS45WN0/20028692.webp', name: 'O Chamado 2', url: 'https://www.youtube.com/embed/OROECuP77Pk', genre: 'Terror' },
+            { image: 'https://musicart.xboxlive.com/7/19ae3d00-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'O Chamado 3', url: 'https://www.youtube.com/embed/_fnTLauSqQ0', genre: 'Terror' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSST4l4F0LxpdAu7qIT0n_byc33VxWaZFn5Og&s', name: 'O Chamado 4', url: 'https://www.youtube.com/embed/poAbFZ_aPR0', genre: 'Terror' },
 
-        
+
+
+
+
         ];
 
         const container = document.querySelector('.container');
