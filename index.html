@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -18,7 +17,6 @@
             background: linear-gradient(135deg, #001f3f, #00796b);
             font-family: 'Poppins', sans-serif;
             color: white;
-            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,7 +37,6 @@
             z-index: 1000;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .navbar a {
@@ -61,11 +58,16 @@
         .logo {
             width: 250px;
             margin-top: 150px;
-            transition: transform 0.3s ease;
+            animation: pulse 1.5s infinite;
         }
 
-        .logo:hover {
-            transform: scale(1.1);
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .search-bar {
@@ -83,7 +85,6 @@
             border: 2px solid rgba(255, 255, 255, 0.5);
             background-color: rgba(0, 0, 0, 0.6);
             color: white;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
         }
 
         .search-bar input:focus {
@@ -109,46 +110,48 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            padding: 20px;
             margin-top: 50px;
         }
 
         .poster-wrapper {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .poster-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-            transition: all 0.3s ease;
         }
 
         .poster {
             width: 200px;
             height: 300px;
-            border-radius: 12px;
             background-size: cover;
             background-position: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
         }
 
         .poster:hover {
             transform: scale(1.1);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .poster .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: url('https://i.ibb.co/4YZZc1j/glowing-neon-play-icon-isolated-on-brick-wall-vector-28838822-removebg-preview.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.0;
+            transition: opacity 0.5s ease;
+        }
+
+        .poster:hover .play-icon {
+            opacity: 0.1;
         }
 
         .poster-name {
@@ -172,6 +175,7 @@
             font-weight: bold;
         }
 
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -211,7 +215,6 @@
         <a href="#" onclick="filterByGenre('Drama')">Drama</a>
         <a href="#" onclick="filterByGenre('Terror')">Terror</a>
         <a href="#" onclick="filterByGenre('Romance')">Romance</a>
-
     </div>
 
     <img class="logo" src="https://i.ibb.co/61b7LQH/Stream-02-01-2025.png" alt="Gameflix Logo">
@@ -229,16 +232,16 @@
         <p>Desenvolvido por <a href="#">David A. Mascaro</a>. Todos os direitos reservados © 2025.</p>
     </footer>
 
-    <div class="modal" id="videoModal">
+    <div id="videoModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <iframe id="videoFrame" src="" allowfullscreen></iframe>
     </div>
 
     <script>
         const posters = [
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
+                        { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
             { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama' },
-            { image: 'https://play-lh.googleusercontent.com/yRQBdW5n_y6hTiFAlWGe69dIV4sjiYavCXWFD1eQOGldxKYMnUzqBDThk_BXr1JJ6XJS2w', name: 'Enrolados', url: 'https://www.youtube.com/embed/Rnpvf3_xs5s', genre: 'Drama' },
+            { image: 'https://play-lh.googleusercontent.com/yRQBdW5n_y6hTiFAlWGe69dIV4sjiYavCXWFD1eQOGldxKYMnUzqBDThk_BXr1JJ6XJS2w', name: 'Enrolados', url: 'https://www.youtube.com/embed/Rnpvf3_xs5s', genre: 'Animação' },
             { image: 'https://br.web.img2.acsta.net/pictures/210/461/21046189_20131002174340886.jpg', name: 'Frozen: Uma Avent...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Animação' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/4/4f/Frozen_2_poster.jpg', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Animação' },
             { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.youtube.com/embed/IawWaP3S4qw', genre: 'Drama' },
@@ -338,9 +341,6 @@
             { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZ22i_mVSxtZWbHsR5MvV6YJZqp_ASy0l5w&s', name: 'Sherlock Holmes', url: 'https://www.youtube.com/embed/fKDJQzk6tS8', genre: 'Ação' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/655a3800f867508deda9e0f46ecf1aba01faead4dd851e137114667a9037de96.jpg', name: 'Sherlock Holmes 2: O...', url: 'https://www.youtube.com/embed/budrUrVerGE', genre: 'Ação' },
 
-
-
-
         ];
 
         const container = document.querySelector('.container');
@@ -348,7 +348,7 @@
         const videoFrame = document.getElementById('videoFrame');
 
         function renderPosters(data) {
-            container.innerHTML = ''; // Limpa o container
+            container.innerHTML = '';
             data.forEach(poster => {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('poster-wrapper');
@@ -356,12 +356,16 @@
                 posterElement.classList.add('poster');
                 posterElement.style.backgroundImage = `url(${poster.image})`;
 
+                const playIcon = document.createElement('div');
+                playIcon.classList.add('play-icon');
+                posterElement.appendChild(playIcon);
+
                 const posterName = document.createElement('div');
                 posterName.classList.add('poster-name');
                 posterName.innerText = poster.name;
 
                 wrapper.appendChild(posterElement);
-                wrapper.appendChild(posterName); // Nome agora é renderizado abaixo da capa
+                wrapper.appendChild(posterName);
 
                 posterElement.addEventListener('click', () => openModal(poster.url));
 
@@ -370,19 +374,19 @@
         }
 
         function openModal(videoUrl) {
-            modal.style.display = 'flex'; // Exibe o modal
-            videoFrame.src = videoUrl; // Define o URL do vídeo no iframe
+            modal.style.display = 'flex';
+            videoFrame.src = videoUrl;
         }
 
         function closeModal() {
-            modal.style.display = 'none'; // Fecha o modal
-            videoFrame.src = ''; // Limpa o conteúdo do vídeo
+            modal.style.display = 'none';
+            videoFrame.src = '';
         }
 
         function searchGames() {
             const searchQuery = document.getElementById('search').value.toLowerCase();
-            const filteredPosters = posters.filter(poster => 
-                poster.name.toLowerCase().includes(searchQuery) || 
+            const filteredPosters = posters.filter(poster =>
+                poster.name.toLowerCase().includes(searchQuery) ||
                 poster.genre.toLowerCase().includes(searchQuery)
             );
             renderPosters(filteredPosters);
@@ -393,8 +397,80 @@
             renderPosters(filteredPosters);
         }
 
-        // Inicializa a página com todos os filmes
         renderPosters(posters);
     </script>
 </body>
 </html>
+
+
+
+<!-- Bloco de código para escurecer os posters sem afetar o ícone de play -->
+<style>
+    .poster-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .poster {
+        position: relative;
+        width: 200px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .poster:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .poster::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);  /* Efeito de escurecimento */
+        border-radius: 12px;
+        opacity: 0.0;
+        transition: opacity 0.3s ease;
+    }
+
+    .poster:hover::after {
+        opacity: 1;
+    }
+
+    .poster-name {
+        color: #e3f2fd;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    /* Ícone de play */
+    .poster::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80px;
+        height: 80px;
+        background: url('https://i.ibb.co/W3XWkv2/Captura-de-tela-2025-01-23-182739.png') no-repeat center;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+        opacity: 0;  /* Ícone invisível inicialmente */
+        transition: opacity 0.5s ease;
+    }
+
+    .poster:hover::before {
+        opacity: 10;  /* Ícone visível somente quando o mouse passar sobre o poster */
+    }
+</style>
