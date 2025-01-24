@@ -456,40 +456,43 @@
     /* Animação de brilho arco-íris */
 @keyframes brilhoArcoIris {
     0% {
-        box-shadow: 0 0 10px rgba(148, 0, 211, 0.8), 
-                    0 0 20px rgba(148, 0, 211, 0.6), 
-                    0 0 30px rgba(148, 0, 211, 0.4); /* Lilás */
+        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8), 
+                    0 0 50px rgba(148, 0, 211, 0.6), 
+                    0 0 70px rgba(148, 0, 211, 0.4); /* Lilás */
     }
     25% {
-        box-shadow: 0 0 10px rgba(0, 0, 255, 0.8), 
-                    0 0 20px rgba(0, 0, 255, 0.6), 
-                    0 0 30px rgba(0, 0, 255, 0.4); /* Azul */
+        box-shadow: 0 0 30px rgba(0, 0, 255, 0.8), 
+                    0 0 50px rgba(0, 0, 255, 0.6), 
+                    0 0 70px rgba(0, 0, 255, 0.4); /* Azul */
     }
     50% {
-        box-shadow: 0 0 10px rgba(135, 206, 250, 0.8), 
-                    0 0 20px rgba(135, 206, 250, 0.6), 
-                    0 0 30px rgba(135, 206, 250, 0.4); /* Azul Celeste */
+        box-shadow: 0 0 30px rgba(135, 206, 250, 0.8), 
+                    0 0 50px rgba(135, 206, 250, 0.6), 
+                    0 0 70px rgba(135, 206, 250, 0.4); /* Azul Celeste */
     }
     75% {
-        box-shadow: 0 0 10px rgba(238, 130, 238, 0.8), 
-                    0 0 20px rgba(238, 130, 238, 0.6), 
-                    0 0 30px rgba(238, 130, 238, 0.4); /* Violeta */
+        box-shadow: 0 0 30px rgba(238, 130, 238, 0.8), 
+                    0 0 50px rgba(238, 130, 238, 0.6), 
+                    0 0 70px rgba(238, 130, 238, 0.4); /* Violeta */
     }
     100% {
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
-                    0 0 20px rgba(255, 255, 255, 0.6), 
-                    0 0 30px rgba(255, 255, 255, 0.4); /* Branco */
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 
+                    0 0 50px rgba(255, 255, 255, 0.6), 
+                    0 0 70px rgba(255, 255, 255, 0.4); /* Branco */
         }
     }
 
-    /* Classe que aplica o efeito de brilho arco-íris */
-    .brilho-arco-iris {
-        animation: brilhoArcoIris 20s infinite alternate;
-    }
+/* Classe que aplica o efeito de brilho arco-íris */
+.brilho-arco-iris {
+    animation: brilhoArcoIris 20s infinite alternate; /* Animação de brilho */
+    border: 20px solid transparent; /* Define uma borda maior */
+    border-radius: 5px; /* Opcional: bordas arredondadas */
+}
+
 </style>
 
 <!-- O iframe que vai ganhar o efeito de brilho arco-íris -->
-<iframe id="videoFrame" src="" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe id="videoFrame" src="" width="560" height="315" frameborder="0.9" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <script>
     // Função para adicionar o efeito de brilho arco-íris ao iframe quando for aberto
