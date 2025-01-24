@@ -137,21 +137,22 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
         }
 
-        .poster .play-icon {
+        /* Efeito de escurecimento atrás do ícone */
+        .poster::after {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: url('https://i.ibb.co/4YZZc1j/glowing-neon-play-icon-isolated-on-brick-wall-vector-28838822-removebg-preview.png') no-repeat center;
-            background-size: contain;
-            opacity: 0.0;
-            transition: opacity 0.5s ease;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);  /* Efeito de escurecimento */
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .poster:hover .play-icon {
-            opacity: 0.1;
+        .poster:hover::after {
+            opacity: 1;
         }
 
         .poster-name {
@@ -160,6 +161,25 @@
             text-align: center;
             font-size: 16px;
             font-weight: 600;
+        }
+
+        /* Ícone de play sobreposto */
+        .poster-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            background: url('https://i.ibb.co/W3XWkv2/Captura-de-tela-2025-01-23-182739.png') no-repeat center;
+            background-size: contain;
+            transform: translate(-50%, -50%);
+            opacity: 0;  /* Ícone invisível inicialmente */
+            transition: opacity 0.5s ease;
+            z-index: 1;  /* Garantir que o ícone fique acima da camada de escurecimento */
+        }
+
+        .poster:hover .poster-icon {
+            opacity: 1;  /* Ícone visível somente quando o mouse passar sobre o poster */
         }
 
         footer {
@@ -343,6 +363,7 @@
 
         ];
 
+
         const container = document.querySelector('.container');
         const modal = document.getElementById('videoModal');
         const videoFrame = document.getElementById('videoFrame');
@@ -357,7 +378,7 @@
                 posterElement.style.backgroundImage = `url(${poster.image})`;
 
                 const playIcon = document.createElement('div');
-                playIcon.classList.add('play-icon');
+                playIcon.classList.add('poster-icon');
                 posterElement.appendChild(playIcon);
 
                 const posterName = document.createElement('div');
@@ -402,75 +423,29 @@
 </body>
 </html>
 
+<!-- Bloco de código independente para efeito sonoro de hover e clique -->
+<audio id="hover-sound" src="https://www.soundjay.com/buttons/button-11.wav" preload="auto"></audio>
+<audio id="click-sound" src="FADE.mp3" preload="auto"></audio> <!-- Arquivo FADE.mp3 na mesma pasta do index.html -->
 
-
-<!-- Bloco de código para escurecer os posters sem afetar o ícone de play -->
-<style>
-    .poster-wrapper {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+<script>
+    // Função para tocar o som de hover
+    function playHoverSound() {
+        const sound = document.getElementById('hover-sound');
+        sound.play();
     }
 
-    .poster {
-        position: relative;
-        width: 200px;
-        height: 300px;
-        background-size: cover;
-        background-position: center;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-        cursor: pointer;
-        transition: transform 0.3s ease;
+    // Função para tocar o som de clique
+    function playClickSound() {
+        const sound = document.getElementById('click-sound');
+        sound.play();
     }
 
-    .poster:hover {
-        transform: scale(1.1);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
-    }
+    // Adicionando o evento de hover nos posters
+    document.querySelectorAll('.poster').forEach(poster => {
+        // Som de hover
+        poster.addEventListener('mouseenter', playHoverSound);
 
-    .poster::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.2);  /* Efeito de escurecimento */
-        border-radius: 12px;
-        opacity: 0.0;
-        transition: opacity 0.3s ease;
-    }
-
-    .poster:hover::after {
-        opacity: 1;
-    }
-
-    .poster-name {
-        color: #e3f2fd;
-        margin-top: 10px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-    /* Ícone de play */
-    .poster::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 80px;
-        height: 80px;
-        background: url('https://i.ibb.co/W3XWkv2/Captura-de-tela-2025-01-23-182739.png') no-repeat center;
-        background-size: contain;
-        transform: translate(-50%, -50%);
-        opacity: 0;  /* Ícone invisível inicialmente */
-        transition: opacity 0.5s ease;
-    }
-
-    .poster:hover::before {
-        opacity: 10;  /* Ícone visível somente quando o mouse passar sobre o poster */
-    }
-</style>
+        // Som de clique
+        poster.addEventListener('click', playClickSound);
+    });
+</script>
