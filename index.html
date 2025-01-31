@@ -55,6 +55,21 @@
             color: white;
         }
 
+        .navbar .home-button {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar .home-button:hover {
+            background-color: #1e4bb5;
+        }
+
         .logo {
             width: 250px;
             margin-top: 150px;
@@ -137,7 +152,6 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
         }
 
-        /* Efeito de escurecimento atrás do ícone */
         .poster::after {
             content: '';
             position: absolute;
@@ -145,7 +159,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);  /* Efeito de escurecimento */
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 12px;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -163,7 +177,6 @@
             font-weight: 600;
         }
 
-        /* Ícone de play sobreposto */
         .poster-icon {
             position: absolute;
             top: 50%;
@@ -173,13 +186,13 @@
             background: url('https://i.ibb.co/W3XWkv2/Captura-de-tela-2025-01-23-182739.png') no-repeat center;
             background-size: contain;
             transform: translate(-50%, -50%);
-            opacity: 0;  /* Ícone invisível inicialmente */
+            opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: 1;  /* Garantir que o ícone fique acima da camada de escurecimento */
+            z-index: 1;
         }
 
         .poster:hover .poster-icon {
-            opacity: 1;  /* Ícone visível somente quando o mouse passar sobre o poster */
+            opacity: 1;
         }
 
         footer {
@@ -195,7 +208,6 @@
             font-weight: bold;
         }
 
-        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -235,6 +247,8 @@
         <a href="#" onclick="filterByGenre('Drama')">Drama</a>
         <a href="#" onclick="filterByGenre('Terror')">Terror</a>
         <a href="#" onclick="filterByGenre('Romance')">Romance</a>
+        <!-- Botão Home ajustado -->
+        <a class="home-button" href="https://streamplus360.github.io/home/" target="_blank">Home 🏠</a>
     </div>
 
     <img class="logo" src="https://i.ibb.co/61b7LQH/Stream-02-01-2025.png" alt="Gameflix Logo">
@@ -259,6 +273,7 @@
 
     <script>
         const posters = [
+          
             { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
             { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama' },
             { image: 'https://i.ibb.co/pxpNb2k/scale.png', name: 'Enrolados', url: 'https://www.youtube.com/embed/nl1KqYgBjH0', genre: 'Animação' },
@@ -268,12 +283,10 @@
             { image: 'https://upload.wikimedia.org/wikipedia/pt/d/da/Leap_year_poster.jpg', name: 'Casa Comigo?', url: 'https://www.youtube.com/embed/XcokcEA_ats', genre: 'Romance' },
             { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/13/77/19872396.jpg', name: 'O Melhor Amigo da...', url: 'https://www.youtube.com/embed/HI_GR8kKMuI', genre: 'Comédia' },
             { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/32/17/19874294.jpg', name: 'A Ultima Música', url: 'https://www.youtube.com/embed/NT5xS26Fla8', genre: 'Romance' },
-            
             { image: 'https://play-lh.googleusercontent.com/D5GX3VP0cOVceEd6K0XybB04UORBzw67y8JfQ175xyBttY85rmH-C1X5bbYTfSNTJsEOQsT0QE9wudWHzPFD=w240-h480-rw', name: 'Descendentes', url:'https://drive.google.com/file/d/16LKPF96wJlULW_6nDYSWsxXD7w_4XsLC/preview', genre: 'Aventura' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/3/38/Descendants_2_P%C3%B4ster.jpeg', name: 'Descendentes 2', url:'https://drive.google.com/file/d/1YDcFoxZRcln41p8uluz3nO-jvrg7IqpO/preview', genre: 'Aventura' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/8/8d/Descendants2.5.jpg', name: 'Descendentes 2.5: Aqui...', url:'https://drive.google.com/file/d/1YX8Yt5YoH1NR9WGFzn2tSk0ZuFoggdVR/preview', genre: 'Aventura' },
             { image: 'https://play-lh.googleusercontent.com/j6ZVxffvob6_LGQoXpLb6GChLSKOWhN1iUFjjI_ROO9mGAVJuBkP1q05wIK6LuNn-uMF', name: 'Descendentes 3', url:'https://drive.google.com/file/d/1cN1kI5ZCDkvTA0mELWYHdbFhPz3jzwAv/preview', genre: 'Aventura' },
-
             { image: 'https://images.justwatch.com/poster/316624627/s718/descedentes-a-ascensao-de-copas.jpg', name: 'Descedentes: A Ascen...', url: 'https://www.youtube.com/embed/4mW2g725l3I', genre: 'Comédia' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/43bedd3729685ea324304d157fe76364027579527a9ccea323fb3868f075c3bc.jpg', name: 'Remanescentes...', url: 'https://www.youtube.com/embed/06UDLSRHRTw', genre: 'Drama' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Animação' },
@@ -380,9 +393,7 @@
             { image: 'https://images.justwatch.com/poster/239896252/s718/legalmente-loira-2.jpg', name: 'Legalmente Loira 2', url: 'https://www.youtube.com/embed/0YyY-tC4QFQ', genre: 'Comédia' },
             { image: 'https://images.justwatch.com/poster/242943249/s332/legally-blondes', name: 'Legalmente Loiras', url: 'https://drive.google.com/file/d/1_BRuRinmkcBXJbDasUur5plSNDJZ8pmf/preview', genre: 'Comédia' },
 
-        ];
-
-
+];
         const container = document.querySelector('.container');
         const modal = document.getElementById('videoModal');
         const videoFrame = document.getElementById('videoFrame');
@@ -439,86 +450,26 @@
 
         renderPosters(posters);
     </script>
+
+    <!-- Bloco de código independente para efeito sonoro de hover e clique -->
+    <audio id="hover-sound" src="https://www.soundjay.com/buttons/button-11.wav" preload="auto"></audio>
+    <audio id="click-sound" src="FADE.mp3" preload="auto"></audio>
+
+    <script>
+        function playHoverSound() {
+            const sound = document.getElementById('hover-sound');
+            sound.play();
+        }
+
+        function playClickSound() {
+            const sound = document.getElementById('click-sound');
+            sound.play();
+        }
+
+        document.querySelectorAll('.poster').forEach(poster => {
+            poster.addEventListener('mouseenter', playHoverSound);
+            poster.addEventListener('click', playClickSound);
+        });
+    </script>
 </body>
 </html>
-
-<!-- Bloco de código independente para efeito sonoro de hover e clique -->
-<audio id="hover-sound" src="https://www.soundjay.com/buttons/button-11.wav" preload="auto"></audio>
-<audio id="click-sound" src="FADE.mp3" preload="auto"></audio> <!-- Arquivo FADE.mp3 na mesma pasta do index.html -->
-
-<script>
-    // Função para tocar o som de hover
-    function playHoverSound() {
-        const sound = document.getElementById('hover-sound');
-        sound.play();
-    }
-
-    // Função para tocar o som de clique
-    function playClickSound() {
-        const sound = document.getElementById('click-sound');
-        sound.play();
-    }
-
-    // Adicionando o evento de hover nos posters
-    document.querySelectorAll('.poster').forEach(poster => {
-        // Som de hover
-        poster.addEventListener('mouseenter', playHoverSound);
-
-        // Som de clique
-        poster.addEventListener('click', playClickSound);
-    });
-</script>
-
-<!-- Bloco de código para o efeito de brilho colorido como arco-íris -->
-<style>
-    /* Animação de brilho arco-íris */
-@keyframes brilhoArcoIris {
-    0% {
-        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8), 
-                    0 0 50px rgba(148, 0, 211, 0.6), 
-                    0 0 70px rgba(148, 0, 211, 0.4); /* Lilás */
-    }
-    25% {
-        box-shadow: 0 0 30px rgba(0, 0, 255, 0.8), 
-                    0 0 50px rgba(0, 0, 255, 0.6), 
-                    0 0 70px rgba(0, 0, 255, 0.4); /* Azul */
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(135, 206, 250, 0.8), 
-                    0 0 50px rgba(135, 206, 250, 0.6), 
-                    0 0 70px rgba(135, 206, 250, 0.4); /* Azul Celeste */
-    }
-    75% {
-        box-shadow: 0 0 30px rgba(238, 130, 238, 0.8), 
-                    0 0 50px rgba(238, 130, 238, 0.6), 
-                    0 0 70px rgba(238, 130, 238, 0.4); /* Violeta */
-    }
-    100% {
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 
-                    0 0 50px rgba(255, 255, 255, 0.6), 
-                    0 0 70px rgba(255, 255, 255, 0.4); /* Branco */
-        }
-    }
-
-/* Classe que aplica o efeito de brilho arco-íris */
-.brilho-arco-iris {
-    animation: brilhoArcoIris 20s infinite alternate; /* Animação de brilho */
-    border: 20px solid transparent; /* Define uma borda maior */
-    border-radius: 5px; /* Opcional: bordas arredondadas */
-}
-
-</style>
-
-<!-- O iframe que vai ganhar o efeito de brilho arco-íris -->
-<iframe id="videoFrame" src="" width="560" height="315" frameborder="0.9" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<script>
-    // Função para adicionar o efeito de brilho arco-íris ao iframe quando for aberto
-    function applyRainbowGlowEffect() {
-        const iframe = document.getElementById('videoFrame');
-        iframe.classList.add('brilho-arco-iris'); // Adiciona a classe de brilho arco-íris
-    }
-
-    // Adicionar o evento para quando o iframe for clicado ou exibido
-    document.getElementById('videoFrame').addEventListener('load', applyRainbowGlowEffect);
-</script>
