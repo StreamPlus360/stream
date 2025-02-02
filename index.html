@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* Estilos anteriores mantidos */
         * {
             margin: 0;
             padding: 0;
@@ -241,6 +242,31 @@
             color: white;
             cursor: pointer;
         }
+
+        .saiba-mais-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .saiba-mais-btn:hover {
+            background-color: #1e4bb5;
+        }
+
+        .saiba-mais-btn img {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 <body>
@@ -276,141 +302,163 @@
         <iframe id="videoFrame" src="" allowfullscreen></iframe>
     </div>
 
+    <div id="infoModal" class="modal">
+        <span class="close" onclick="closeInfoModal()">&times;</span>
+        <iframe id="infoFrame" src="" allowfullscreen></iframe>
+    </div>
+
     <script>
         const posters = [
-          
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação' },
-            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama' },
-            { image: 'https://i.ibb.co/pxpNb2k/scale.png', name: 'Enrolados', url: 'https://www.youtube.com/embed/nl1KqYgBjH0', genre: 'Animação' },
-            { image: 'https://i.ibb.co/J7B08YW/scale.png', name: 'Frozen: Uma Avent...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Animação' },
-            { image: 'https://i.ibb.co/3vmk51C/scale.png', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Animação' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.youtube.com/embed/IawWaP3S4qw', genre: 'Drama' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/d/da/Leap_year_poster.jpg', name: 'Casa Comigo?', url: 'https://www.youtube.com/embed/XcokcEA_ats', genre: 'Romance' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/13/77/19872396.jpg', name: 'O Melhor Amigo da...', url: 'https://www.youtube.com/embed/HI_GR8kKMuI', genre: 'Comédia' },
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/32/17/19874294.jpg', name: 'A Ultima Música', url: 'https://www.youtube.com/embed/NT5xS26Fla8', genre: 'Romance' },
-            { image: 'https://play-lh.googleusercontent.com/D5GX3VP0cOVceEd6K0XybB04UORBzw67y8JfQ175xyBttY85rmH-C1X5bbYTfSNTJsEOQsT0QE9wudWHzPFD=w240-h480-rw', name: 'Descendentes', url:'https://drive.google.com/file/d/16LKPF96wJlULW_6nDYSWsxXD7w_4XsLC/preview', genre: 'Aventura' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/3/38/Descendants_2_P%C3%B4ster.jpeg', name: 'Descendentes 2', url:'https://drive.google.com/file/d/1YDcFoxZRcln41p8uluz3nO-jvrg7IqpO/preview', genre: 'Aventura' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/8/8d/Descendants2.5.jpg', name: 'Descendentes 2.5: Aqui...', url:'https://drive.google.com/file/d/1YX8Yt5YoH1NR9WGFzn2tSk0ZuFoggdVR/preview', genre: 'Aventura' },
-            { image: 'https://play-lh.googleusercontent.com/j6ZVxffvob6_LGQoXpLb6GChLSKOWhN1iUFjjI_ROO9mGAVJuBkP1q05wIK6LuNn-uMF', name: 'Descendentes 3', url:'https://drive.google.com/file/d/1cN1kI5ZCDkvTA0mELWYHdbFhPz3jzwAv/preview', genre: 'Aventura' },
-            { image: 'https://images.justwatch.com/poster/316624627/s718/descedentes-a-ascensao-de-copas.jpg', name: 'Descedentes: A Ascen...', url: 'https://www.youtube.com/embed/4mW2g725l3I', genre: 'Comédia' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/43bedd3729685ea324304d157fe76364027579527a9ccea323fb3868f075c3bc.jpg', name: 'Remanescentes...', url: 'https://www.youtube.com/embed/06UDLSRHRTw', genre: 'Drama' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Animação' },
-            { image: 'https://br.web.img2.acsta.net/img/63/b2/63b2d305f79a69eb0a3bd837e8706399.jpg', name: 'Frozen: Febre Con...', url: 'https://www.youtube.com/embed/X4zGnU5wk4o', genre: 'Animação' },
-            { image: 'https://br.web.img3.acsta.net/img/bb/88/bb88410fdc3fdf712a1259aec1d4fb3a.jfif', name: 'Casamento San...', url: 'https://www.youtube.com/embed/mBz6rIQwNFc', genre: 'Terror' },
-            { image: 'https://lumiere-a.akamaihd.net/v1/images/gife454xsaa8wv-_3e8071e7.jpeg?region=0%2C0%2C1638%2C2048', name: 'Divertidamente 2', url: 'https://www.youtube.com/embed/oJ0dBw42NbY', genre: 'Animação' },
-            { image: 'https://i.ibb.co/WsL5vJ2/0132283.webp', name: 'Elementos', url: 'https://www.youtube.com/embed/uDe-Id4euWw', genre: 'Animação' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgw5ePYJL2ttHUGHAuityQ7zU55o94_3FPD5VqFlQFBdPzXuR8bSkO1o-RjfjiwPoTmnE&usqp=CAU', name: 'Roubo Nas Alturas', url: 'https://www.youtube.com/embed/iBcK0HbGqk0', genre: 'Comédia' },
-            { image: 'https://i.ibb.co/y6s9fTH/gife454xsaa8wv-3e8071e7.webp', name: 'Divertidamente', url: 'https://www.youtube.com/embed/aqIwVJSwauQ', genre: 'Animação' },
-            { image: 'https://image.tmdb.org/t/p/w500/orA2sYnjNcGHJ9h88CWa2Vs7VlR.jpg', name: 'Garganta do Diabo', url: 'https://www.youtube.com/embed/_gM1XjC-z3U', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/20/10/19/22/23/2564835.jpg', name: 'Destruição final: O...', url: 'https://www.youtube.com/embed/lrWHPvO5I_8', genre: 'Ação' },
-            { image: 'https://dozitos.com/wp-content/uploads/2022/12/Identidade-300x450.jpg', name: 'Identidade', url: 'https://www.youtube.com/embed/uXHTZyyxw1Y', genre: 'Terror' },
-            { image: 'https://limontorrents.com/storage/2021/01/Boneco-do-Mal.jpg', name: 'Boneco do Mal', url: 'https://www.youtube.com/embed/fs8_cRneg2w', genre: 'Terror' },
-            { image: 'https://limontorrents.com/storage/2021/01/Brahms-Boneco-do-Mal-II.jpg', name: 'Brahms: Boneco do...', url: 'https://player.vimeo.com/video/1043963415', genre: 'Terror' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/89/82/94/20068344.jpg', name: '12 Horas', url: 'https://www.youtube.com/embed/XfetiAY0upI', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/87/32/63/20028692.jpg', name: 'Cartas Para Julieta', url: 'https://www.youtube.com/embed/uAX0YQh5n3Q', genre: 'Romance' },
-            { image: 'https://limontorrents.com/storage/2020/10/Megatubarao.jpg', name: 'Megalodon', url: 'https://www.youtube.com/embed/L9UgIsTjU1o', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/30/64/20395594.jpg', name: 'Poseidon', url: 'https://www.youtube.com/embed/2sfbnViKJ5A', genre: 'Drama' },
-            { image: 'https://m.media-amazon.com/images/M/MV5BNzg3NjFkNjgtNDZkNy00MDBiLTg3ZTYtZmI2NGY3NzEyY2IzXkEyXkFqcGc@._V1_.jpg', name: 'Só Você', url: 'https://filesyncs.com/?id=2148&sub=https://subs.warezcdn.link/156444-PTB.srt&subtitle=Portugu%C3%AAs', genre: 'Romance' },
-            { image: 'https://musicart.xboxlive.com/7/57356700-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'Megalodon 2', url: 'https://www.youtube.com/embed/LXqtj2ywe5M', genre: 'Ação' },
-            { image: 'https://i.ibb.co/JkxD3Sd/20028692.webp', name: 'Gritos Mortais', url: 'https://www.youtube.com/embed/F-wYHvCH52Q', genre: 'Terror' },
-            { image: 'https://i.ibb.co/y5LFz5J/20028692.webp', name: 'Floresta Maldita', url: 'https://player.vimeo.com/video/1043978184', genre: 'Terror' },
-            { image: 'https://i.ibb.co/bLdq7Tz/20028692.webp', name: 'O Chamado', url: 'https://www.youtube.com/embed/gfsl6ufRwg8', genre: 'Terror' },
-            { image: 'https://i.ibb.co/NS45WN0/20028692.webp', name: 'O Chamado 2', url: 'https://www.youtube.com/embed/OROECuP77Pk', genre: 'Terror' },
-            { image: 'https://musicart.xboxlive.com/7/19ae3d00-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'O Chamado 3', url: 'https://www.youtube.com/embed/_fnTLauSqQ0', genre: 'Terror' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSST4l4F0LxpdAu7qIT0n_byc33VxWaZFn5Og&s', name: 'O Chamado 4', url: 'https://www.youtube.com/embed/poAbFZ_aPR0', genre: 'Terror' },
-            { image: 'https://limontorrents.com/storage/2020/10/Parasita-1.jpg', name: 'Parasita', url: 'https://www.youtube.com/embed/hZiEQ1yy-vw', genre: 'Drama' },
-            { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/19/06/13/09/35/4216544.jpg', name: 'Misterios no Medit...', url: 'https://www.youtube.com/embed/hV2ujS5wg9w', genre: 'Comédia' },
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/29/71/19874039.jpg', name: 'Falando Grego', url: 'https://www.youtube.com/embed/8NQkbaW0Kfc', genre: 'Comédia' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/02/90/19871261.jpg', name: 'Casamento Grego', url: 'https://www.youtube.com/embed/7DkIJxcL5i8', genre: 'Comédia' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/16/01/08/17/12/338081.jpg', name: 'Casamento Grego 2', url: 'https://www.youtube.com/embed/f4eMtJvBvA0', genre: 'Comédia' },
-            { image: 'https://br.web.img2.acsta.net/pictures/23/09/24/16/38/0302884.png', name: 'Casamento Grego 3', url: 'https://www.youtube.com/embed/WWfz0cXHlKI', genre: 'Comédia' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/acf04714c5c1d7762e1a52d4379fb22dfb87f75c8c9d1ac0340ab9f56c1d7487.jpg', name: 'Um Amor para...', url: 'https://www.youtube.com/embed/M5luSvB78lo', genre: 'Drama' },
-            { image: 'https://play-lh.googleusercontent.com/OkftMNNNrtpnQAGmSQULUO1c9_94gLOH42FPaDt-u9z_bYk7vLpx6bQzr8JEHbVU1ajLIonCNsU2uhcbGXc', name: 'Familia do Futuro', url: 'https://www.youtube.com/embed/jKWOt5TMAr8', genre: 'Animação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/71e60c45d3beacaa7e78b975cf91e1802b27f5a94304fae84354ca0a02d9d8a5.jpg', name: 'A Nova Cinderela', url: 'https://www.youtube.com/embed/uVQmE6hV2LA', genre: 'Comédia' },
-            { image: 'https://play-lh.googleusercontent.com/CTWeYOJ2l-8NrN4Svug4gdXIuB3Z0BXQJZ2S6F99AzVZVConpmPRTVIOc8wg7NUGPWN1=w240-h480-rw', name: 'Lizzie Mcguire um...', url: 'https://www.youtube.com/embed/ZFHC4n3haNc', genre: 'Comédia' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/14/08/18/23/03/406517.jpg', name: 'Sem Prafa sem...', url: 'https://www.youtube.com/embed/bW2ufdWG_i0', genre: 'Comédia' },
-            { image: 'https://m.media-amazon.com/images/I/615ZMYhZvjL._AC_UF894,1000_QL80_.jpg', name: 'Guerra dos Mundos', url: 'https://www.youtube.com/embed/jbdVw6Luhu8', genre: 'Ação' },
-            { image: 'https://i.ibb.co/M7s1Y9K/missao-moedas.webp', name: 'Missão: Golpe de...', url: 'https://www.youtube.com/embed/5bBLrKCa9RU', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/30/63/19874134.jpg', name: 'Código de Conduta', url: 'https://www.youtube.com/embed/iiCTkNJMbQM', genre: 'Ação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/f17dfbd4d32bae80c9f8c8fae1388b91b988a3b98fbd7a16b68e1d0b5d0fba42.jpg', name: 'Walt: Antes de...', url: 'https://www.youtube.com/embed/F-CuBm55rzU', genre: 'Drama' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/92/29/37/20190986.jpg', name: 'Motoqueiros Selvagens', url: 'https://www.youtube.com/embed/fQZiDm22GXk', genre: 'Comédia' },
-            { image: 'https://i.ibb.co/340H1h8/V-o-Noturno-2005.webp', name: 'Vôo Noturno', url: 'https://www.youtube.com/embed/j8p0lUeb9r0', genre: 'Ação' },
-            { image: 'https://http2.mlstatic.com/D_NQ_NP_865832-MLB49867894498_052022-O.webp', name: 'Escrito Nas Estrelas', url: 'https://www.youtube.com/embed/Yt1MdDcDkBU', genre: 'Romance' },
-            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/19/26/19872954.jpg', name: 'Sem Reservas', url: 'https://www.youtube.com/embed/bou_P9isk3M', genre: 'Romance' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/93/87/90/20282764.jpg', name: 'Temos Vagas', url: 'https://www.youtube.com/embed/4U1mISsvzh8', genre: 'Terror' },
-            { image: 'https://www.papodecinema.com.br/wp-content/uploads/2014/02/20190401-6754158_1gg.jpg', name: 'O Diabo Veste Prada', url: 'https://www.youtube.com/embed/Yqq2N2di-L8', genre: 'Comédia' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/5f726e3fc5d3caa519b1231fb007977145b9464c2986eae6b8f7713d39c0ddaf.jpg', name: 'Enquanto Ela Esta Fora', url: 'https://www.youtube.com/embed/nR_KZ7QolTc', genre: 'Ação' },
-            { image: 'https://br.web.img2.acsta.net/pictures/18/01/30/14/45/4953352.jpg', name: 'O Passageiro', url: 'https://www.dailymotion.com/embed/video/k2GvhfB2CHndAlCc3hE', genre: 'Ação' },
-            { image: 'https://br.web.img2.acsta.net/pictures/21/05/20/19/32/4078581.jpg', name: 'Tara Madita', url: 'https://www.youtube.com/embed/8aHU4JtylXg', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/33/59/20140728.jpg', name: 'A Noiva Cadáver', url: 'https://www.youtube.com/embed/cj5MxuVkH5Y', genre: 'Animação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/15/01/07/22/40/319755.jpg', name: 'Hacker', url: 'https://www.youtube.com/embed/nSUoOvPETy4', genre: 'Ação' },
-            { image: 'https://play-lh.googleusercontent.com/yc0fkZgcKQkJL37pf-UGeFxpLHNStolwcyHY8Kr8P9mU4SphnwfEP62bEkf2dOXRkDOZ', name: 'Snowden: Herói Ou...', url: 'https://www.youtube.com/embed/5U1WH_ejiMo', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/pictures/17/07/20/15/53/052550.jpg', name: 'Hacker: Todo Crime...', url: 'https://www.youtube.com/embed/5U1WH_ejiMo', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/18/09/26/18/34/2790155.jpg', name: 'Parque do Inferno', url: 'https://www.youtube.com/embed/H1BS6exL8sE', genre: 'Terror' },
-            { image: 'https://br.web.img3.acsta.net/pictures/19/09/03/19/33/2430141.jpg', name: 'Obsessão Secreta', url: 'https://www.youtube.com/embed/d4SA26YN4bw', genre: 'Ação' },
-            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/90/32/60/20091672.jpg', name: 'Obsessiva', url: 'https://www.youtube.com/embed/xdyvSlVeMpw', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/pictures/19/06/19/21/18/1155729.jpg', name: 'Mãe Obsessiva', url: 'https://www.youtube.com/embed/A5KmRkojiWk', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/pictures/210/254/21025445_20130807223124967.jpg', name: 'Você de Novo', url: 'https://www.youtube.com/embed/o3itrvRjzH4', genre: 'Comédia' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/94/11/20434898.jpg', name: 'Quando em Roma', url: 'https://www.youtube.com/embed/jWdJdg5xUQk', genre: 'Romance' },
-            { image: 'https://www.atoupeira.com.br/wp-content/uploads/2022/02/case-comigo-poster-0102-692x1024.jpg', name: 'Case Comigo', url: 'https://www.youtube.com/embed/5MJFfWMo76k', genre: 'Romance' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/0/02/The_Proposal.jpg', name: 'A Proposta', url: 'https://www.youtube.com/embed/uhN5gVib8o8', genre: 'Romance' },
-            { image: 'https://images.justwatch.com/poster/199233617/s718/confessions-of-a-shopaholic.jpg', name: 'Os Delirios de...', url: 'https://www.youtube.com/embed/Zep4S4RkedQ', genre: 'Romance' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/12/71/19872289.jpg', name: 'Noivas em Guerra', url: 'https://www.youtube.com/embed/1jNnN7rNUFQ', genre: 'Comédia' },
-            { image: 'https://br.web.img3.acsta.net/pictures/17/12/29/12/41/2418041.jpg', name: 'Vende-se Esta Casa', url: 'https://www.youtube.com/embed/fyK05HU5KFM', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/pictures/14/08/27/01/12/229200.jpg', name: 'Columbus Circle', url: 'https://www.youtube.com/embed/dklvpdToqD0', genre: 'Ação' },
-            { image: 'https://play-lh.googleusercontent.com/0gAWoFjAWcpTkly78DdOmOO76xDx2n3To-cJI5on8u55SEuncw0MMUMz6YfGXZnSmJrH', name: 'Horas de Desespero', url: 'https://www.youtube.com/embed/DbHdG32uplU', genre: 'Ação' },
-            { image: 'https://i.ibb.co/KmLvjBH/2790155.webp', name: 'Nas Profundezas do Mar...', url: 'https://www.youtube.com/embed/iC8V5fjYPeY', genre: 'Drama' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdPGVrX6dRr99x0dcjvdiF_9Am-vJcDCIYdQ&s', name: 'Paranoia', url: 'https://www.youtube.com/embed/j_ZePpFOLME', genre: 'Ação' },
-            { image: 'https://m.media-amazon.com/images/I/91UQCBxB+cL._AC_UF894,1000_QL80_.jpg', name: 'Invocação do Mal', url: 'https://www.youtube.com/embed/mTYM0fQ0foI', genre: 'Terror' },
-            { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/16/04/18/20/43/025084.jpg', name: 'Invocação do Mal 2', url: 'https://www.youtube.com/embed/8CLwPfV_kCA', genre: 'Terror' },
-            { image: 'https://irs.www.warnerbros.com.br/keyart-jpeg/movies/media/browser/CONJURING3_V_DD_KA_TT_2160x2880_300dpi_BR.jpg', name: 'Invocação do Mal 3: A...', url: 'https://www.youtube.com/embed/aGbMD72lcjE', genre: 'Terror' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/ab9f599f7c91dfdb83ca312f92cfbdef7a460d9db8d8f2faa37e0a1fe9947bd8.jpg', name: 'O Tempo com Você', url: 'https://www.youtube.com/embed/C3OyRugLFx4', genre: 'Animação' },
-            { image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEil-Kw5z71UaffYZi2-tNt9bIXfYMIGWdvdQ2d9dSJ0LWnykgjLyQTnt5aG_jwwjQZYTQIVUG65JStl_jF08LEaCTnlLDrfex38SsrSoY531VP7s2FRSeZSd84y4SVDw_8wH6n1XwAfW9E1bxd8mtNFGzOA00IIvvx5lFwET374K_m16uTsG79v6ou-/s1122/anime-a-voz-do-sil%C3%AAncio.jpeg', name: 'A Voz do Silêncio', url: 'https://www.youtube.com/embed/0D7LSP2mSUg', genre: 'Animação' },
-            { image: 'https://images.justwatch.com/poster/210091350/s718/the-lie.jpg', name: 'Mentira Incondicional', url: 'https://www.youtube.com/embed/5eyjLYqWnIU', genre: 'Drama' },
-            { image: 'https://br.web.img3.acsta.net/pictures/16/03/28/19/29/126618.jpg', name: 'O Dono do Jogo', url: 'https://www.youtube.com/embed/hsFvXKvhXUk', genre: 'Drama' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/bd6cf0c13d15dd1f0c2416708a2cb17922f137cda3a3378c20756de760614574.jpg', name: 'A Noite do Jogo', url: 'https://www.youtube.com/embed/E2ELlt5-8qg', genre: 'Comédia' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzorxV83dLJzCUDcwn82PSTICzGMfEK21K7w&s', name: 'A Orfã', url: 'https://www.youtube.com/embed/nGiFlwaYw-0', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/pictures/22/07/13/17/20/2336764.png', name: 'A Orfã 2: A Ori...', url: 'https://www.youtube.com/embed/Ul5xkI2GzcA', genre: 'Ação' },
-            { image: 'https://play-lh.googleusercontent.com/8Mae0jOK0iG5cT3NnEqp9BI8KvfnTskHJHQAXCWHOl3rngJ4iYWl5DP9145jM8ag57uZfqUl-nARTZ2woA', name: 'Premonição', url: 'https://www.youtube.com/embed/lCNvcpeX_3c', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/98/07/20172668.jpg', name: 'O Fugitivo', url: 'https://www.youtube.com/embed/DljD9NH85I4', genre: 'Ação' },
-            { image: 'https://images.justwatch.com/poster/249960933/s718/nunca-mais.jpg', name: 'Nunca Mais', url: 'https://www.youtube.com/embed/QJyyv3_ih0o', genre: 'Ação' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2N_I_jiNRxgIlZMwRp8EC28AsUaeNDM5pLQ&s', name: 'Naufrágo', url: 'https://www.youtube.com/embed/bJbWLOF6axQ', genre: 'Drama' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/f250e226eb729d54fd4c5d3c020b1f5e3bb6f98bc483de751d80b17070d5dec8.jpg', name: 'Corra', url: 'https://www.youtube.com/embed/1qphuplJ4W4', genre: 'Ação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/a0be5dbed6b86e0d8dcf8eb57217954275ff1063e07a0c1584de0cc7fc6661fa.jpg', name: 'Premonições', url: 'https://www.youtube.com/embed/QQsVC-sGG3c', genre: 'Ação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/76f9230b3a49f068224077be6913d8f3ed740dcb0e75f55a920dea412f43508b.jpg', name: 'Lenda Urbana', url: 'https://www.youtube.com/embed/qBVBCwCWnl4', genre: 'Terror' },
-            { image: 'https://br.web.img3.acsta.net/pictures/20/09/29/20/41/5122915.jpg', name: 'Kadaver', url: 'https://www.youtube.com/embed/JVvR_YtRcwY', genre: 'Terror' },
-            { image: 'https://play-lh.googleusercontent.com/proxy/w1fTjPrxsInApYR4mVR29NtoGVTI_OY1UKItBNkewd78TCpuA53896d6nd7K0z-OvcR3mUh4rUXHrzvBb-y2wKClJms77yMB1OlOh_y4opFsfl9udnnxNgfzX31tKt9xoE30PY3Bo5EveH-UaJcifaj3PAYVLyzOJCEvXA', name: 'Atividade Paranormal:...', url: 'https://www.youtube.com/embed/eBGjpbzJ34A', genre: 'Terror' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/81a8cab1a1787fce9b44b4f4f649220fedbf33101cd4f2539f0d266e26b18484.jpg', name: 'Da Magia À Sedução', url: 'https://www.youtube.com/embed/Y9tSpuU528Y', genre: 'Romance' },
-            { image: 'https://images.justwatch.com/poster/176974384/s718/o-lobisomem.jpg', name: 'O Lobisomem', url: 'https://player.vimeo.com/video/1049472965', genre: 'Ação' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZ22i_mVSxtZWbHsR5MvV6YJZqp_ASy0l5w&s', name: 'Sherlock Holmes', url: 'https://www.youtube.com/embed/fKDJQzk6tS8', genre: 'Ação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/655a3800f867508deda9e0f46ecf1aba01faead4dd851e137114667a9037de96.jpg', name: 'Sherlock Holmes 2: O...', url: 'https://www.youtube.com/embed/budrUrVerGE', genre: 'Ação' },
-            { image: 'https://i.ibb.co/z8Rcpv1/Picture1.png', name: 'Moana: Um Mar...', url: 'https://www.youtube.com/embed/QB5GSKfPuUA', genre: 'Animação' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWKomvqwTHUWngkdfAf5ZOswE6ZT1eCKfJEQ&s', name: 'Mansão Mal Assombrada', url: 'https://www.youtube.com/embed/wgx9aX6npps', genre: 'Aventura' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/8fcd448e2a8f1c70b355655d7c58d2fc6089b64324f74636d8c72183b1806a21.jpg', name: 'Cadê os Morgans?', url: 'https://www.youtube.com/embed/jKTy-Aou3uI', genre: 'Comédia' },
-            { image: 'https://play-lh.googleusercontent.com/9429Zy-TmLZC7JwBN0avoyY-NLUcLo7t9-wvKZuAUfif7CmDuQGNlI5OTjPyCAucGGn1', name: 'Medo Profundo: O Se...', url: 'https://www.youtube.com/embed/WUTiUz9v0vk', genre: 'Ação' },
-            { image: 'https://play-lh.googleusercontent.com/w8zAyKwj24pLoxg2r2M6j5bznkH6pqhkHBvOBHs2GY8xqeIVgzxjx8QBSGAQVOUJskN8=w240-h480-rw', name: 'A Casa Amaldiçoada', url: 'https://www.youtube.com/embed/KziGatOL7aQ', genre: 'Terror' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgxEByUe9Pt-RCX-VyHnDtB-A3I4hEMioJLQ&s', name: 'Hotel Transilvânia', url: 'https://drive.google.com/file/d/1gbyzhLOOx8M74-r2m_-U7MTMkDVHhEaW/preview', genre: 'Animação' },
-            { image: 'https://m.media-amazon.com/images/S/pv-target-images/6056773ff6ab453bd3188157d7ddb9d0ddba07ffd099bbf68b8c911ddabdcb3f.jpg', name: 'Hotel Transilvânia 2', url: 'https://www.youtube.com/embed/lqFnSmHe-6s', genre: 'Animação' },
-            { image: 'https://play-lh.googleusercontent.com/lRa-kzKtsF3Z_HNZNIbMz9KOTmXCu1KhPcoRNGYSjvymvx0v71D6YClwdvCgwIh7Nd2_zg', name: 'Hotel Transilvânia 3: Fé...', url: 'https://www.youtube.com/embed/zgpuupiWV1g', genre: 'Animação' },
-            { image: 'https://play-lh.googleusercontent.com/m0BUTfrzJf6Q93RJkBhteQBTzGgi9QlBG65OXucswdRNzSrMzdvvTcn8pTPuw8DKyv9ZB6sFmSEIY6Jm5aO2', name: 'Hotel Transilvânia 4: Tra...', url: 'https://www.youtube.com/embed/Jbd-_oAMFVM', genre: 'Animação' },
-            { image: 'https://play-lh.googleusercontent.com/y4HBJKxSqEu6QPm0yVaiy-LvNoGX9CQD_9GL3Q1FoCBarBVrgdTR87sMJhEjCPt1RwM=w600-h300-pc0xffffff-pd', name: 'A Casa das Coelhinhas', url: 'https://www.youtube.com/embed/rT9v9MA-lgQ', genre: 'Comédia' },
-            { image: 'https://play-lh.googleusercontent.com/OjxT055m3do_GuqJkU_K--nuSdjW1G19DGoiqrQvXK74IqH8HOj3TfO-HbE8r8qfpG_UdovVYRGe-OsLlI3c', name: 'Legalmente Loira', url: 'https://drive.google.com/file/d/1BM34a98JbMRy-BkH3vMEoyhWJ7Nsvl2u/preview', genre: 'Comédia' },
-            { image: 'https://images.justwatch.com/poster/239896252/s718/legalmente-loira-2.jpg', name: 'Legalmente Loira 2', url: 'https://www.youtube.com/embed/0YyY-tC4QFQ', genre: 'Comédia' },
-            { image: 'https://images.justwatch.com/poster/242943249/s332/legally-blondes', name: 'Legalmente Loiras', url: 'https://drive.google.com/file/d/1_BRuRinmkcBXJbDasUur5plSNDJZ8pmf/preview', genre: 'Comédia' },
-            { image: 'https://i.ibb.co/nNyJXStv/Picture1.png', name: 'Homem Aranha: Atrá...', url: 'https://www.youtube.com/embed/Ih15Gaw7v3g', genre: 'Animação' },
-            { image: 'https://upload.wikimedia.org/wikipedia/pt/b/b5/Duplex-2003-fkfkfkfkfk.jpg', name: 'Duplex', url: 'https://www.youtube.com/embed/CcVRm_Dw6uQ', genre: 'Comédia' },
-            { image: 'https://cdn32.ntcdn.pro/testme/dle2/posts/2024-07/lr2brAjZ7r4qPnYCGLBQWZbdqik.jpg', name: 'Sem Saída', url: 'https://www.youtube.com/embed/PEz8fJQvTCk', genre: 'Ação' },
-            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/87/32/78/19874358.jpg', name: 'Sem Saída', url: 'https://www.youtube.com/embed/Fbh9oJTisOU', genre: 'Ação' },
-];
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-56996/'  },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-129308/' },
+            { image: 'https://i.ibb.co/pxpNb2k/scale.png', name: 'Enrolados', url: 'https://www.youtube.com/embed/nl1KqYgBjH0', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-135523/'},
+            { image: 'https://i.ibb.co/J7B08YW/scale.png', name: 'Frozen: Uma Avent...', url: 'https://www.youtube.com/embed/ZVfnb8aOhcs', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-203691/' },
+            { image: 'https://i.ibb.co/3vmk51C/scale.png', name: 'Frozen: II', url: 'https://www.youtube.com/embed/wyvnlbaGYTE', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-233713/'},
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/91/05/16/20127313.jpg', name: 'Para Sempre', url: 'https://www.youtube.com/embed/IawWaP3S4qw', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-184864/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/d/da/Leap_year_poster.jpg', name: 'Casa Comigo?', url: 'https://www.youtube.com/embed/XcokcEA_ats', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-139966/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/13/77/19872396.jpg', name: 'O Melhor Amigo da...', url: 'https://www.youtube.com/embed/HI_GR8kKMuI', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-124884/' },
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/32/17/19874294.jpg', name: 'A Ultima Música', url: 'https://www.youtube.com/embed/NT5xS26Fla8', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-145473/' },
+            { image: 'https://play-lh.googleusercontent.com/D5GX3VP0cOVceEd6K0XybB04UORBzw67y8JfQ175xyBttY85rmH-C1X5bbYTfSNTJsEOQsT0QE9wudWHzPFD=w240-h480-rw', name: 'Descendentes', url:'https://drive.google.com/file/d/16LKPF96wJlULW_6nDYSWsxXD7w_4XsLC/preview', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-225872/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/3/38/Descendants_2_P%C3%B4ster.jpeg', name: 'Descendentes 2', url:'https://drive.google.com/file/d/1YDcFoxZRcln41p8uluz3nO-jvrg7IqpO/preview', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-241853/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/8/8d/Descendants2.5.jpg', name: 'Descendentes 2.5: Aqui...', url:'https://drive.google.com/file/d/1YX8Yt5YoH1NR9WGFzn2tSk0ZuFoggdVR/preview', genre: 'Aventura', adorocinema: 'https://pt.wikipedia.org/wiki/Under_the_Sea:_A_Descendants_Story' },
+            { image: 'https://play-lh.googleusercontent.com/j6ZVxffvob6_LGQoXpLb6GChLSKOWhN1iUFjjI_ROO9mGAVJuBkP1q05wIK6LuNn-uMF', name: 'Descendentes 3', url:'https://drive.google.com/file/d/1cN1kI5ZCDkvTA0mELWYHdbFhPz3jzwAv/preview', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-262734/' },
+            { image: 'https://images.justwatch.com/poster/316624627/s718/descedentes-a-ascensao-de-copas.jpg', name: 'Descedentes: A Ascen...', url: 'https://www.youtube.com/embed/4mW2g725l3I', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-304431/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/43bedd3729685ea324304d157fe76364027579527a9ccea323fb3868f075c3bc.jpg', name: 'Remanescentes...', url: 'https://www.youtube.com/embed/06UDLSRHRTw', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-230604/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-245007/' },
+            { image: 'https://br.web.img2.acsta.net/img/63/b2/63b2d305f79a69eb0a3bd837e8706399.jpg', name: 'Frozen: Febre Con...', url: 'https://www.youtube.com/embed/X4zGnU5wk4o', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-231333/' },
+            { image: 'https://br.web.img3.acsta.net/img/bb/88/bb88410fdc3fdf712a1259aec1d4fb3a.jfif', name: 'Casamento San...', url: 'https://www.youtube.com/embed/mBz6rIQwNFc', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-268056/' },
+            { image: 'https://lumiere-a.akamaihd.net/v1/images/gife454xsaa8wv-_3e8071e7.jpeg?region=0%2C0%2C1638%2C2048', name: 'Divertidamente 2', url: 'https://www.youtube.com/embed/oJ0dBw42NbY', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-307991/' },
+            { image: 'https://i.ibb.co/WsL5vJ2/0132283.webp', name: 'Elementos', url: 'https://www.youtube.com/embed/uDe-Id4euWw', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-279115/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgw5ePYJL2ttHUGHAuityQ7zU55o94_3FPD5VqFlQFBdPzXuR8bSkO1o-RjfjiwPoTmnE&usqp=CAU', name: 'Roubo Nas Alturas', url: 'https://www.youtube.com/embed/iBcK0HbGqk0', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-186586/' },
+            { image: 'https://i.ibb.co/y6s9fTH/gife454xsaa8wv-3e8071e7.webp', name: 'Divertidamente', url: 'https://www.youtube.com/embed/aqIwVJSwauQ', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-196960/' },
+            { image: 'https://image.tmdb.org/t/p/w500/orA2sYnjNcGHJ9h88CWa2Vs7VlR.jpg', name: 'Garganta do Diabo', url: 'https://www.youtube.com/embed/_gM1XjC-z3U', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-44921/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/20/10/19/22/23/2564835.jpg', name: 'Destruição final: O...', url: 'https://www.youtube.com/embed/lrWHPvO5I_8', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-264720/' },
+            { image: 'https://dozitos.com/wp-content/uploads/2022/12/Identidade-300x450.jpg', name: 'Identidade', url: 'https://www.youtube.com/embed/uXHTZyyxw1Y', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-42965/' },
+            { image: 'https://limontorrents.com/storage/2021/01/Boneco-do-Mal.jpg', name: 'Boneco do Mal', url: 'https://www.youtube.com/embed/fs8_cRneg2w', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-235019/'},
+            { image: 'https://limontorrents.com/storage/2021/01/Brahms-Boneco-do-Mal-II.jpg', name: 'Brahms: Boneco do...', url: 'https://player.vimeo.com/video/1043963415', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-268927/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/89/82/94/20068344.jpg', name: '12 Horas', url: 'https://www.youtube.com/embed/XfetiAY0upI', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-190351/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/87/32/63/20028692.jpg', name: 'Cartas Para Julieta', url: 'https://www.youtube.com/embed/uAX0YQh5n3Q', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-146575/' },
+            { image: 'https://limontorrents.com/storage/2020/10/Megatubarao.jpg', name: 'Megalodon', url: 'https://www.youtube.com/embed/L9UgIsTjU1o', genre: 'Ação', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-58275/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/30/64/20395594.jpg', name: 'Poseidon', url: 'https://www.youtube.com/embed/2sfbnViKJ5A', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-60016/' },
+            { image: 'https://m.media-amazon.com/images/M/MV5BNzg3NjFkNjgtNDZkNy00MDBiLTg3ZTYtZmI2NGY3NzEyY2IzXkEyXkFqcGc@._V1_.jpg', name: 'Só Você', url: 'https://filesyncs.com/?id=2148&sub=https://subs.warezcdn.link/156444-PTB.srt&subtitle=Portugu%C3%AAs', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-50696/' },
+            { image: 'https://musicart.xboxlive.com/7/57356700-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'Megalodon 2', url: 'https://www.youtube.com/embed/LXqtj2ywe5M', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-269170/' },
+            { image: 'https://i.ibb.co/JkxD3Sd/20028692.webp', name: 'Gritos Mortais', url: 'https://www.youtube.com/embed/F-wYHvCH52Q', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-126460/' },
+            { image: 'https://i.ibb.co/y5LFz5J/20028692.webp', name: 'Floresta Maldita', url: 'https://player.vimeo.com/video/1043978184', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-229209/' },
+            { image: 'https://i.ibb.co/bLdq7Tz/20028692.webp', name: 'O Chamado', url: 'https://www.youtube.com/embed/gfsl6ufRwg8', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-42552/' },
+            { image: 'https://i.ibb.co/NS45WN0/20028692.webp', name: 'O Chamado 2', url: 'https://www.youtube.com/embed/OROECuP77Pk', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-54681/' },
+            { image: 'https://musicart.xboxlive.com/7/19ae3d00-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'O Chamado 3', url: 'https://www.youtube.com/embed/_fnTLauSqQ0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-172648/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSST4l4F0LxpdAu7qIT0n_byc33VxWaZFn5Og&s', name: 'O Chamado 4', url: 'https://www.youtube.com/embed/poAbFZ_aPR0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-310889/' },
+            { image: 'https://limontorrents.com/storage/2020/10/Parasita-1.jpg', name: 'Parasita', url: 'https://www.youtube.com/embed/hZiEQ1yy-vw', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-255238/' },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/19/06/13/09/35/4216544.jpg', name: 'Misterios no Medit...', url: 'https://www.youtube.com/embed/hV2ujS5wg9w', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-178854/#:~:text=Nick%20Spitz%20(Adam%20Sandler)%20%C3%A9,que%20o%20ajude%20nesta%20mentira.' },
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/29/71/19874039.jpg', name: 'Falando Grego', url: 'https://www.youtube.com/embed/8NQkbaW0Kfc', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-143114/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/02/90/19871261.jpg', name: 'Casamento Grego', url: 'https://www.youtube.com/embed/7DkIJxcL5i8', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-45569/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/16/01/08/17/12/338081.jpg', name: 'Casamento Grego 2', url: 'https://www.youtube.com/embed/f4eMtJvBvA0', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-229251/' },
+            { image: 'https://br.web.img2.acsta.net/pictures/23/09/24/16/38/0302884.png', name: 'Casamento Grego 3', url: 'https://www.youtube.com/embed/WWfz0cXHlKI', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-305734/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/acf04714c5c1d7762e1a52d4379fb22dfb87f75c8c9d1ac0340ab9f56c1d7487.jpg', name: 'Um Amor para...', url: 'https://www.youtube.com/embed/M5luSvB78lo', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-40910/' },
+            { image: 'https://play-lh.googleusercontent.com/OkftMNNNrtpnQAGmSQULUO1c9_94gLOH42FPaDt-u9z_bYk7vLpx6bQzr8JEHbVU1ajLIonCNsU2uhcbGXc', name: 'A Familia do Futuro', url: 'https://www.youtube.com/embed/jKWOt5TMAr8', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-60249/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/71e60c45d3beacaa7e78b975cf91e1802b27f5a94304fae84354ca0a02d9d8a5.jpg', name: 'A Nova Cinderela', url: 'https://www.youtube.com/embed/uVQmE6hV2LA', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-52125/' },
+            { image: 'https://play-lh.googleusercontent.com/CTWeYOJ2l-8NrN4Svug4gdXIuB3Z0BXQJZ2S6F99AzVZVConpmPRTVIOc8wg7NUGPWN1=w240-h480-rw', name: 'Lizzie Mcguire um...', url: 'https://www.youtube.com/embed/ZFHC4n3haNc', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-52672/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/14/08/18/23/03/406517.jpg', name: 'Sem Prada sem...', url: 'https://www.youtube.com/embed/bW2ufdWG_i0', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-174078/' },
+            { image: 'https://m.media-amazon.com/images/I/615ZMYhZvjL._AC_UF894,1000_QL80_.jpg', name: 'Guerra dos Mundos', url: 'https://www.youtube.com/embed/jbdVw6Luhu8', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-56393/' },
+            { image: 'https://i.ibb.co/M7s1Y9K/missao-moedas.webp', name: 'Missão: Golpe de...', url: 'https://www.youtube.com/embed/5bBLrKCa9RU', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-252293/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/30/63/19874134.jpg', name: 'Código de Conduta', url: 'https://www.youtube.com/embed/iiCTkNJMbQM', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-134690/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/f17dfbd4d32bae80c9f8c8fae1388b91b988a3b98fbd7a16b68e1d0b5d0fba42.jpg', name: 'Walt: Antes de...', url: 'https://www.youtube.com/embed/F-CuBm55rzU', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-227015/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/92/29/37/20190986.jpg', name: 'Motoqueiros Selvagens', url: 'https://www.youtube.com/embed/fQZiDm22GXk', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-110242/' },
+            { image: 'https://i.ibb.co/340H1h8/V-o-Noturno-2005.webp', name: 'Vôo Noturno', url: 'https://www.youtube.com/embed/j8p0lUeb9r0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-57881/' },
+            { image: 'https://http2.mlstatic.com/D_NQ_NP_865832-MLB49867894498_052022-O.webp', name: 'Escrito Nas Estrelas', url: 'https://www.youtube.com/embed/Yt1MdDcDkBU', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-28941/' },
+            { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/19/26/19872954.jpg', name: 'Sem Reservas', url: 'https://www.youtube.com/embed/bou_P9isk3M', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-108928/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/93/87/90/20282764.jpg', name: 'Temos Vagas', url: 'https://www.youtube.com/embed/4U1mISsvzh8', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-111421/' },
+            { image: 'https://www.papodecinema.com.br/wp-content/uploads/2014/02/20190401-6754158_1gg.jpg', name: 'O Diabo Veste Prada', url: 'https://www.youtube.com/embed/Yqq2N2di-L8', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-61445/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/5f726e3fc5d3caa519b1231fb007977145b9464c2986eae6b8f7713d39c0ddaf.jpg', name: 'Enquanto Ela Esta Fora', url: 'https://www.youtube.com/embed/nR_KZ7QolTc', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-122852/' },
+            { image: 'https://br.web.img2.acsta.net/pictures/18/01/30/14/45/4953352.jpg', name: 'O Passageiro', url: 'https://www.dailymotion.com/embed/video/k2GvhfB2CHndAlCc3hE', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-177592/' },
+            { image: 'https://br.web.img2.acsta.net/pictures/21/05/20/19/32/4078581.jpg', name: 'Tara Madita', url: 'https://www.youtube.com/embed/8aHU4JtylXg', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-261413/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/33/59/20140728.jpg', name: 'A Noiva Cadáver', url: 'https://www.youtube.com/embed/cj5MxuVkH5Y', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-56718/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/15/01/07/22/40/319755.jpg', name: 'Hacker', url: 'https://www.youtube.com/embed/nSUoOvPETy4', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-218770/' },
+            { image: 'https://play-lh.googleusercontent.com/yc0fkZgcKQkJL37pf-UGeFxpLHNStolwcyHY8Kr8P9mU4SphnwfEP62bEkf2dOXRkDOZ', name: 'Snowden: Herói Ou...', url: 'https://www.youtube.com/embed/5U1WH_ejiMo', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-229359/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/17/07/20/15/53/052550.jpg', name: 'Hacker: Todo Crime...', url: 'https://www.youtube.com/embed/5U1WH_ejiMo', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-225237/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/pictures/18/09/26/18/34/2790155.jpg', name: 'Parque do Inferno', url: 'https://www.youtube.com/embed/H1BS6exL8sE', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-249460/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/19/09/03/19/33/2430141.jpg', name: 'Obsessão Secreta', url: 'https://www.youtube.com/embed/d4SA26YN4bw', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-272611/' },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/90/32/60/20091672.jpg', name: 'Obsessiva', url: 'https://www.youtube.com/embed/xdyvSlVeMpw', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-134698/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/19/06/19/21/18/1155729.jpg', name: 'Mãe Obsessiva', url: 'https://www.youtube.com/embed/A5KmRkojiWk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-275111/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/210/254/21025445_20130807223124967.jpg', name: 'Você de Novo', url: 'https://www.youtube.com/embed/o3itrvRjzH4', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-145709/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/94/11/20434898.jpg', name: 'Quando em Roma', url: 'https://www.youtube.com/embed/jWdJdg5xUQk', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-134125/' },
+            { image: 'https://www.atoupeira.com.br/wp-content/uploads/2022/02/case-comigo-poster-0102-692x1024.jpg', name: 'Case Comigo', url: 'https://www.youtube.com/embed/5MJFfWMo76k', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-273690/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/0/02/The_Proposal.jpg', name: 'A Proposta', url: 'https://www.youtube.com/embed/uhN5gVib8o8', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-129019/' },
+            { image: 'https://images.justwatch.com/poster/199233617/s718/confessions-of-a-shopaholic.jpg', name: 'Os Delirios de...', url: 'https://www.youtube.com/embed/Zep4S4RkedQ', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-130604/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/12/71/19872289.jpg', name: 'Noivas em Guerra', url: 'https://www.youtube.com/embed/1jNnN7rNUFQ', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-133173/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/17/12/29/12/41/2418041.jpg', name: 'Vende-se Esta Casa', url: 'https://www.youtube.com/embed/fyK05HU5KFM', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-260471/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/14/08/27/01/12/229200.jpg', name: 'Columbus Circle', url: 'https://www.youtube.com/embed/dklvpdToqD0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-148360/' },
+            { image: 'https://play-lh.googleusercontent.com/0gAWoFjAWcpTkly78DdOmOO76xDx2n3To-cJI5on8u55SEuncw0MMUMz6YfGXZnSmJrH', name: 'Horas de Desespero', url: 'https://www.youtube.com/embed/DbHdG32uplU', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-206754/' },
+            { image: 'https://i.ibb.co/KmLvjBH/2790155.webp', name: 'Nas Profundezas do Mar...', url: 'https://www.youtube.com/embed/iC8V5fjYPeY', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-8529/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdPGVrX6dRr99x0dcjvdiF_9Am-vJcDCIYdQ&s', name: 'Paranoia', url: 'https://www.youtube.com/embed/j_ZePpFOLME', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-111640/' },
+            { image: 'https://m.media-amazon.com/images/I/91UQCBxB+cL._AC_UF894,1000_QL80_.jpg', name: 'Invocação do Mal', url: 'https://www.youtube.com/embed/mTYM0fQ0foI', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-203607/' },
+            { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/16/04/18/20/43/025084.jpg', name: 'Invocação do Mal 2', url: 'https://www.youtube.com/embed/8CLwPfV_kCA', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-222796/' },
+            { image: 'https://irs.www.warnerbros.com.br/keyart-jpeg/movies/media/browser/CONJURING3_V_DD_KA_TT_2160x2880_300dpi_BR.jpg', name: 'Invocação do Mal 3: A...', url: 'https://www.youtube.com/embed/aGbMD72lcjE', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-248235/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/ab9f599f7c91dfdb83ca312f92cfbdef7a460d9db8d8f2faa37e0a1fe9947bd8.jpg', name: 'O Tempo com Você', url: 'https://www.youtube.com/embed/C3OyRugLFx4', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-270440/' },
+            { image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEil-Kw5z71UaffYZi2-tNt9bIXfYMIGWdvdQ2d9dSJ0LWnykgjLyQTnt5aG_jwwjQZYTQIVUG65JStl_jF08LEaCTnlLDrfex38SsrSoY531VP7s2FRSeZSd84y4SVDw_8wH6n1XwAfW9E1bxd8mtNFGzOA00IIvvx5lFwET374K_m16uTsG79v6ou-/s1122/anime-a-voz-do-sil%C3%AAncio.jpeg', name: 'A Voz do Silêncio', url: 'https://www.youtube.com/embed/0D7LSP2mSUg', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-254955/' },
+            { image: 'https://images.justwatch.com/poster/210091350/s718/the-lie.jpg', name: 'Mentira Incondicional', url: 'https://www.youtube.com/embed/5eyjLYqWnIU', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-266900/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/16/03/28/19/29/126618.jpg', name: 'O Dono do Jogo', url: 'https://www.youtube.com/embed/hsFvXKvhXUk', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-178973/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/bd6cf0c13d15dd1f0c2416708a2cb17922f137cda3a3378c20756de760614574.jpg', name: 'A Noite do Jogo', url: 'https://www.youtube.com/embed/E2ELlt5-8qg', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-218449/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzorxV83dLJzCUDcwn82PSTICzGMfEK21K7w&s', name: 'A Orfã', url: 'https://www.youtube.com/embed/nGiFlwaYw-0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-132783/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/22/07/13/17/20/2336764.png', name: 'A Orfã 2: A Ori...', url: 'https://www.youtube.com/embed/Ul5xkI2GzcA', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-287653/' },
+            { image: 'https://play-lh.googleusercontent.com/8Mae0jOK0iG5cT3NnEqp9BI8KvfnTskHJHQAXCWHOl3rngJ4iYWl5DP9145jM8ag57uZfqUl-nARTZ2woA', name: 'Premonição', url: 'https://www.youtube.com/embed/lCNvcpeX_3c', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-25096/' },
+            { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/98/07/20172668.jpg', name: 'O Fugitivo', url: 'https://www.youtube.com/embed/DljD9NH85I4', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-8257/' },
+            { image: 'https://images.justwatch.com/poster/249960933/s718/nunca-mais.jpg', name: 'Nunca Mais', url: 'https://www.youtube.com/embed/QJyyv3_ih0o', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-28999/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2N_I_jiNRxgIlZMwRp8EC28AsUaeNDM5pLQ&s', name: 'Naufrágo', url: 'https://www.youtube.com/embed/bJbWLOF6axQ', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-27770/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/f250e226eb729d54fd4c5d3c020b1f5e3bb6f98bc483de751d80b17070d5dec8.jpg', name: 'Corra', url: 'https://www.youtube.com/embed/1qphuplJ4W4', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-241160/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/a0be5dbed6b86e0d8dcf8eb57217954275ff1063e07a0c1584de0cc7fc6661fa.jpg', name: 'Premonições', url: 'https://www.youtube.com/embed/QQsVC-sGG3c', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-108684/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/76f9230b3a49f068224077be6913d8f3ed740dcb0e75f55a920dea412f43508b.jpg', name: 'Lenda Urbana', url: 'https://www.youtube.com/embed/qBVBCwCWnl4', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-13527/' },
+            { image: 'https://br.web.img3.acsta.net/pictures/20/09/29/20/41/5122915.jpg', name: 'Kadaver', url: 'https://www.youtube.com/embed/JVvR_YtRcwY', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-283549/' },
+            { image: 'https://play-lh.googleusercontent.com/proxy/w1fTjPrxsInApYR4mVR29NtoGVTI_OY1UKItBNkewd78TCpuA53896d6nd7K0z-OvcR3mUh4rUXHrzvBb-y2wKClJms77yMB1OlOh_y4opFsfl9udnnxNgfzX31tKt9xoE30PY3Bo5EveH-UaJcifaj3PAYVLyzOJCEvXA', name: 'Atividade Paranormal:...', url: 'https://www.youtube.com/embed/eBGjpbzJ34A', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-193281/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/81a8cab1a1787fce9b44b4f4f649220fedbf33101cd4f2539f0d266e26b18484.jpg', name: 'Da Magia À Sedução', url: 'https://www.youtube.com/embed/Y9tSpuU528Y', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-12479/' },
+            { image: 'https://images.justwatch.com/poster/176974384/s718/o-lobisomem.jpg', name: 'O Lobisomem', url: 'https://player.vimeo.com/video/1049472965', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-110815/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZ22i_mVSxtZWbHsR5MvV6YJZqp_ASy0l5w&s', name: 'Sherlock Holmes', url: 'https://www.youtube.com/embed/fKDJQzk6tS8', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-127179/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/655a3800f867508deda9e0f46ecf1aba01faead4dd851e137114667a9037de96.jpg', name: 'Sherlock Holmes 2: O...', url: 'https://www.youtube.com/embed/budrUrVerGE', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-173048/' },
+            { image: 'https://i.ibb.co/z8Rcpv1/Picture1.png', name: 'Moana: Um Mar...', url: 'https://www.youtube.com/embed/QB5GSKfPuUA', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-225958/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWKomvqwTHUWngkdfAf5ZOswE6ZT1eCKfJEQ&s', name: 'Mansão Mal Assombrada', url: 'https://www.youtube.com/embed/wgx9aX6npps', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-44237/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/8fcd448e2a8f1c70b355655d7c58d2fc6089b64324f74636d8c72183b1806a21.jpg', name: 'Cadê os Morgans?', url: 'https://www.youtube.com/embed/jKTy-Aou3uI', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-140335/' },
+            { image: 'https://play-lh.googleusercontent.com/9429Zy-TmLZC7JwBN0avoyY-NLUcLo7t9-wvKZuAUfif7CmDuQGNlI5OTjPyCAucGGn1', name: 'Medo Profundo: O Se...', url: 'https://www.youtube.com/embed/WUTiUz9v0vk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-258790/' },
+            { image: 'https://play-lh.googleusercontent.com/w8zAyKwj24pLoxg2r2M6j5bznkH6pqhkHBvOBHs2GY8xqeIVgzxjx8QBSGAQVOUJskN8=w240-h480-rw', name: 'A Casa Amaldiçoada', url: 'https://www.youtube.com/embed/KziGatOL7aQ', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-20888/' },
+            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgxEByUe9Pt-RCX-VyHnDtB-A3I4hEMioJLQ&s', name: 'Hotel Transilvânia', url: 'https://drive.google.com/file/d/1gbyzhLOOx8M74-r2m_-U7MTMkDVHhEaW/preview', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-126079/' },
+            { image: 'https://m.media-amazon.com/images/S/pv-target-images/6056773ff6ab453bd3188157d7ddb9d0ddba07ffd099bbf68b8c911ddabdcb3f.jpg', name: 'Hotel Transilvânia 2', url: 'https://www.youtube.com/embed/lqFnSmHe-6s', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-215570/' },
+            { image: 'https://play-lh.googleusercontent.com/lRa-kzKtsF3Z_HNZNIbMz9KOTmXCu1KhPcoRNGYSjvymvx0v71D6YClwdvCgwIh7Nd2_zg', name: 'Hotel Transilvânia 3: Fé...', url: 'https://www.youtube.com/embed/zgpuupiWV1g', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-241421/' },
+            { image: 'https://play-lh.googleusercontent.com/m0BUTfrzJf6Q93RJkBhteQBTzGgi9QlBG65OXucswdRNzSrMzdvvTcn8pTPuw8DKyv9ZB6sFmSEIY6Jm5aO2', name: 'Hotel Transilvânia 4: Tra...', url: 'https://www.youtube.com/embed/Jbd-_oAMFVM', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-251348/' },
+            { image: 'https://play-lh.googleusercontent.com/y4HBJKxSqEu6QPm0yVaiy-LvNoGX9CQD_9GL3Q1FoCBarBVrgdTR87sMJhEjCPt1RwM=w600-h300-pc0xffffff-pd', name: 'A Casa das Coelhinhas', url: 'https://www.youtube.com/embed/rT9v9MA-lgQ', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-130453/' },
+            { image: 'https://play-lh.googleusercontent.com/OjxT055m3do_GuqJkU_K--nuSdjW1G19DGoiqrQvXK74IqH8HOj3TfO-HbE8r8qfpG_UdovVYRGe-OsLlI3c', name: 'Legalmente Loira', url: 'https://drive.google.com/file/d/1BM34a98JbMRy-BkH3vMEoyhWJ7Nsvl2u/preview', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-29006/' },
+            { image: 'https://images.justwatch.com/poster/239896252/s718/legalmente-loira-2.jpg', name: 'Legalmente Loira 2', url: 'https://www.youtube.com/embed/0YyY-tC4QFQ', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-46404/' },
+            { image: 'https://images.justwatch.com/poster/242943249/s332/legally-blondes', name: 'Legalmente Loiras', url: 'https://drive.google.com/file/d/1_BRuRinmkcBXJbDasUur5plSNDJZ8pmf/preview', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-147715/' },
+            { image: 'https://i.ibb.co/nNyJXStv/Picture1.png', name: 'Homem Aranha: Atrá...', url: 'https://www.youtube.com/embed/Ih15Gaw7v3g', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-269975/' },
+            { image: 'https://upload.wikimedia.org/wikipedia/pt/b/b5/Duplex-2003-fkfkfkfkfk.jpg', name: 'Duplex', url: 'https://www.youtube.com/embed/CcVRm_Dw6uQ', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-29156/' },
+            { image: 'https://cdn32.ntcdn.pro/testme/dle2/posts/2024-07/lr2brAjZ7r4qPnYCGLBQWZbdqik.jpg', name: 'Sem Saída', url: 'https://www.youtube.com/embed/PEz8fJQvTCk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-259700/' },
+            { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/87/32/78/19874358.jpg', name: 'Sem Saída', url: 'https://www.youtube.com/embed/Fbh9oJTisOU', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-178184/' },            
+            
+            
+        ];
+
         const container = document.querySelector('.container');
-        const modal = document.getElementById('videoModal');
+        const videoModal = document.getElementById('videoModal');
         const videoFrame = document.getElementById('videoFrame');
+        const infoModal = document.getElementById('infoModal');
+        const infoFrame = document.getElementById('infoFrame');
 
         function renderPosters(data) {
             container.innerHTML = '';
             data.forEach(poster => {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('poster-wrapper');
+
+                // Imagem que servirá como botão "AdoroCinema"
+                const adoradoCinemaImg = document.createElement('img');
+                adoradoCinemaImg.src = "https://i.ibb.co/hJww2LWr/logo-main-6419f574.png";
+                adoradoCinemaImg.alt = "AdoroCinema Icon";
+                adoradoCinemaImg.style.cursor = "pointer";
+                // Reduzindo o tamanho da logo:
+                adoradoCinemaImg.style.width = "120px";
+                adoradoCinemaImg.style.height = "auto";
+                adoradoCinemaImg.style.marginBottom = "10px";
+                adoradoCinemaImg.addEventListener('click', () => openInfoModal(poster.adorocinema));
+
+                // Poster do filme
                 const posterElement = document.createElement('div');
                 posterElement.classList.add('poster');
                 posterElement.style.backgroundImage = `url(${poster.image})`;
@@ -419,10 +467,13 @@
                 playIcon.classList.add('poster-icon');
                 posterElement.appendChild(playIcon);
 
+                // Nome do filme
                 const posterName = document.createElement('div');
                 posterName.classList.add('poster-name');
                 posterName.innerText = poster.name;
 
+                // Adiciona os elementos na ordem desejada
+                wrapper.appendChild(adoradoCinemaImg);
                 wrapper.appendChild(posterElement);
                 wrapper.appendChild(posterName);
 
@@ -433,13 +484,23 @@
         }
 
         function openModal(videoUrl) {
-            modal.style.display = 'flex';
+            videoModal.style.display = 'flex';
             videoFrame.src = videoUrl;
         }
 
         function closeModal() {
-            modal.style.display = 'none';
+            videoModal.style.display = 'none';
             videoFrame.src = '';
+        }
+
+        function openInfoModal(infoUrl) {
+            infoModal.style.display = 'flex';
+            infoFrame.src = infoUrl;
+        }
+
+        function closeInfoModal() {
+            infoModal.style.display = 'none';
+            infoFrame.src = '';
         }
 
         function searchGames() {
@@ -459,7 +520,7 @@
         renderPosters(posters);
     </script>
 
-    <!-- Bloco de código independente para efeito sonoro de hover e clique -->
+       <!-- Bloco de código independente para efeito sonoro de hover e clique -->
     <audio id="hover-sound" src="https://www.soundjay.com/buttons/button-11.wav" preload="auto"></audio>
     <audio id="click-sound" src="FADE.mp3" preload="auto"></audio>
 
