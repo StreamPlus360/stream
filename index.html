@@ -1,88 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Favicon usando a URL -->
-    <link rel="icon" href="https://i.ibb.co/tpBbDm6y/123.png" type="image/png">
-    <title>Stream+</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Filmes</title>
+    <title>Stream+</title>
+    <link rel="icon" href="https://i.ibb.co/tpBbDm6y/123.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Estilos anteriores mantidos */
+        /* Reset básico */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: url(https://cur.cursors-4u.net/cursors/cur-2/cur116.cur), auto !important;
         }
-
         body {
             background: linear-gradient(135deg, #001f3f, #00796b);
             font-family: 'Poppins', sans-serif;
             color: white;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
-
+        /* Navbar responsiva */
         .navbar {
             display: flex;
             justify-content: center;
             align-items: center;
             background: rgba(0, 0, 0, 0.8);
-            padding: 15px 30px;
+            padding: 15px;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
+            flex-wrap: wrap;
         }
-
         .navbar a {
             color: #e2e8f0;
-            margin: 0 15px;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 8px 16px;
+            font-size: 14px;
+            padding: 8px 12px;
             border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease;
         }
-
         .navbar a:hover {
             background-color: #2563eb;
             color: white;
         }
-
-        .navbar .home-button {
+        .home-button {
             background-color: #2563eb;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 16px;
             border-radius: 30px;
-            text-decoration: none;
-            font-size: 16px;
             font-weight: 600;
-            transition: background-color 0.3s ease, color 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
-        .navbar .home-button:hover {
+        .home-button:hover {
             background-color: #1e4bb5;
         }
-
+        /* Logo e barra de pesquisa */
         .logo {
-            width: 250px;
-            margin-top: 150px;
+            width: 200px;
+            margin-top: 120px;
             animation: pulse 1.5s infinite;
         }
-
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -91,14 +78,12 @@
                 transform: scale(1.1);
             }
         }
-
         .search-bar {
-            margin-top: 30px;
             position: relative;
-            width: 80%;
+            width: 90%;
             max-width: 500px;
+            margin-top: 30px;
         }
-
         .search-bar input {
             width: 100%;
             padding: 12px 50px 12px 15px;
@@ -108,13 +93,6 @@
             background-color: rgba(0, 0, 0, 0.6);
             color: white;
         }
-
-        .search-bar input:focus {
-            border-color: #2563eb;
-            background-color: rgba(0, 0, 0, 0.8);
-            outline: none;
-        }
-
         .search-bar button {
             position: absolute;
             right: 15px;
@@ -126,39 +104,43 @@
             cursor: pointer;
             font-size: 20px;
         }
-
+        /* Galeria de filmes responsiva */
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
             margin-top: 50px;
+            padding: 0 20px;
         }
-
         .poster-wrapper {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 10px;
         }
-
+        .adorocinema-icon {
+            width: 120px;
+            height: auto;
+            cursor: pointer;
+        }
         .poster {
-            width: 200px;
-            height: 300px;
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            width: 100%;
+            max-width: 200px; /* Largura máxima fixa */
+            aspect-ratio: 2 / 3; /* Proporção de 2:3 (padrão para posters) */
             border-radius: 12px;
+            overflow: hidden;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
             cursor: pointer;
-            position: relative;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; /* Adiciona transição suave */
         }
-
-        .poster:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+        .poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+            display: block;
         }
-
         .poster::after {
             content: '';
             position: absolute;
@@ -167,54 +149,51 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            border-radius: 12px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 1;
         }
-
         .poster:hover::after {
             opacity: 1;
         }
-
+        .poster:hover {
+            transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+        }
         .poster-name {
-            color: #e3f2fd;
-            margin-top: 10px;
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
         }
-
         .poster-icon {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: url('https://i.ibb.co/W3XWkv2/Captura-de-tela-2025-01-23-182739.png') no-repeat center;
             background-size: contain;
             transform: translate(-50%, -50%);
             opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: 1;
+            z-index: 2; /* Garante que o ícone fique na frente */
         }
-
         .poster:hover .poster-icon {
             opacity: 1;
         }
-
+        /* Footer */
         footer {
             margin-top: 50px;
             text-align: center;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
         }
-
         footer a {
             color: #2563eb;
             text-decoration: none;
             font-weight: bold;
         }
-
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -227,13 +206,43 @@
             align-items: center;
             z-index: 1000;
         }
-
         .modal iframe {
             width: 80%;
             height: 80%;
-            border: none;
+            max-width: 800px;
+            max-height: 600px;
+            border: 10px solid transparent;
+            border-radius: 12px;
+            animation: rainbowGlow 20s infinite alternate;
         }
-
+        /* Animação de brilho arco-íris */
+        @keyframes rainbowGlow {
+            0% {
+                box-shadow: 0 0 30px rgba(148, 0, 211, 0.8),
+                            0 0 50px rgba(148, 0, 211, 0.6),
+                            0 0 70px rgba(148, 0, 211, 0.4);
+            }
+            25% {
+                box-shadow: 0 0 30px rgba(0, 0, 255, 0.8),
+                            0 0 50px rgba(0, 0, 255, 0.6),
+                            0 0 70px rgba(0, 0, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(135, 206, 250, 0.8),
+                            0 0 50px rgba(135, 206, 250, 0.6),
+                            0 0 70px rgba(135, 206, 250, 0.4);
+            }
+            75% {
+                box-shadow: 0 0 30px rgba(238, 130, 238, 0.8),
+                            0 0 50px rgba(238, 130, 238, 0.6),
+                            0 0 70px rgba(238, 130, 238, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                            0 0 50px rgba(255, 255, 255, 0.6),
+                            0 0 70px rgba(255, 255, 255, 0.4);
+            }
+        }
         .modal .close {
             position: absolute;
             top: 20px;
@@ -242,34 +251,34 @@
             color: white;
             cursor: pointer;
         }
-
-        .saiba-mais-btn {
-            margin-top: 10px;
-            padding: 8px 16px;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .saiba-mais-btn:hover {
-            background-color: #1e4bb5;
-        }
-
-        .saiba-mais-btn img {
-            width: 20px;
-            height: 20px;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .navbar a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+            .logo {
+                width: 150px;
+            }
+            .search-bar input {
+                font-size: 14px;
+                padding: 10px 40px 10px 15px;
+            }
+            .poster {
+                max-width: 150px;
+            }
+            .poster-icon {
+                width: 50px;
+                height: 50px;
+            }
+            .poster-name {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <div class="navbar">
         <a href="#" onclick="filterByGenre('all')">Todos</a>
         <a href="#" onclick="filterByGenre('Ação')">Ação</a>
@@ -281,34 +290,30 @@
         <a href="#" onclick="filterByGenre('Romance')">Romance</a>
         <a class="home-button" href="https://streamplus360.github.io/home/">Home 🏠</a>
     </div>
-
-    <img class="logo" src="https://i.ibb.co/61b7LQH/Stream-02-01-2025.png" alt="Gameflix Logo">
-
+    <!-- Logo e Barra de Pesquisa -->
+    <img class="logo" src="https://i.ibb.co/61b7LQH/Stream-02-01-2025.png" alt="Stream+ Logo">
     <div class="search-bar">
         <input type="text" placeholder="Pesquise por filmes..." id="search" oninput="searchGames()">
         <button onclick="searchGames()"><i class="fas fa-search"></i></button>
     </div>
-
-    <div class="container">
-        <!-- Posters serão renderizados aqui -->
-    </div>
-
+    <!-- Galeria de Filmes -->
+    <div class="container" id="gallery"></div>
+    <!-- Footer -->
     <footer>
         <p>Desenvolvido por <a href="#">David A. Mascaro</a>. Todos os direitos reservados © 2025.</p>
     </footer>
-
+    <!-- Modais -->
     <div id="videoModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <iframe id="videoFrame" src="" allowfullscreen></iframe>
     </div>
-
     <div id="infoModal" class="modal">
         <span class="close" onclick="closeInfoModal()">&times;</span>
         <iframe id="infoFrame" src="" allowfullscreen></iframe>
     </div>
-
+    <!-- Scripts -->
     <script>
-        const posters = [
+       const posters = [
             { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/84/49/19962131.jpg', name: 'Plano de Vôo', url: 'https://www.youtube.com/embed/mm_XY6FuA3k', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-56996/'  },
             { image: 'https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/87/28/98/19873964.jpg', name: 'Tinha que Ser...', url: 'https://www.youtube.com/embed/e5wqNzYaWu4', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-129308/' },
             { image: 'https://i.ibb.co/yczVhjxV/Picture1.png', name: 'Enrolados', url: 'https://www.youtube.com/embed/nl1KqYgBjH0', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-135523/'},
@@ -326,7 +331,7 @@
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/43bedd3729685ea324304d157fe76364027579527a9ccea323fb3868f075c3bc.jpg', name: 'Remanescentes...', url: 'https://www.youtube.com/embed/06UDLSRHRTw', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-230604/' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/f/fe/Olaf%27s_Frozen_Adventure_poster.jpg', name: 'Frozen: Olaf Em...', url: 'https://www.youtube.com/embed/b8mB3oJwuuc', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-245007/' },
             { image: 'https://br.web.img2.acsta.net/img/63/b2/63b2d305f79a69eb0a3bd837e8706399.jpg', name: 'Frozen: Febre Con...', url: 'https://www.youtube.com/embed/X4zGnU5wk4o', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-231333/' },
-            { image: 'https://br.web.img3.acsta.net/img/bb/88/bb88410fdc3fdf712a1259aec1d4fb3a.jfif', name: 'Casamento San...', url: 'https://www.youtube.com/embed/mBz6rIQwNFc', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-268056/' },
+            { image: 'https://www.papodecinema.com.br/wp-content/uploads/2020/04/20200414-casamento-sangrento-papo-de-cinema-cartaz.jpeg', name: 'Casamento San...', url: 'https://www.youtube.com/embed/mBz6rIQwNFc', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-268056/' },
             { image: 'https://lumiere-a.akamaihd.net/v1/images/gife454xsaa8wv-_3e8071e7.jpeg?region=0%2C0%2C1638%2C2048', name: 'Divertidamente 2', url: 'https://www.youtube.com/embed/oJ0dBw42NbY', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-307991/' },
             { image: 'https://i.ibb.co/WsL5vJ2/0132283.webp', name: 'Elementos', url: 'https://www.youtube.com/embed/uDe-Id4euWw', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-279115/' },
             { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgw5ePYJL2ttHUGHAuityQ7zU55o94_3FPD5VqFlQFBdPzXuR8bSkO1o-RjfjiwPoTmnE&usqp=CAU', name: 'Roubo Nas Alturas', url: 'https://www.youtube.com/embed/iBcK0HbGqk0', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-186586/' },
@@ -342,12 +347,12 @@
             { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/30/64/20395594.jpg', name: 'Poseidon', url: 'https://www.youtube.com/embed/2sfbnViKJ5A', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-60016/' },
             { image: 'https://m.media-amazon.com/images/M/MV5BNzg3NjFkNjgtNDZkNy00MDBiLTg3ZTYtZmI2NGY3NzEyY2IzXkEyXkFqcGc@._V1_.jpg', name: 'Só Você', url: 'https://filesyncs.com/?id=2148&sub=https://subs.warezcdn.link/156444-PTB.srt&subtitle=Portugu%C3%AAs', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-50696/' },
             { image: 'https://musicart.xboxlive.com/7/57356700-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'Megalodon 2', url: 'https://www.youtube.com/embed/LXqtj2ywe5M', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-269170/' },
-            { image: 'https://i.ibb.co/JkxD3Sd/20028692.webp', name: 'Gritos Mortais', url: 'https://www.youtube.com/embed/F-wYHvCH52Q', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-126460/' },
-            { image: 'https://i.ibb.co/y5LFz5J/20028692.webp', name: 'Floresta Maldita', url: 'https://player.vimeo.com/video/1043978184', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-229209/' },
+            { image: 'https://i.pinimg.com/736x/8c/64/5f/8c645f473087717e3562376f207b0e87.jpg', name: 'Gritos Mortais', url: 'https://www.youtube.com/embed/F-wYHvCH52Q', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-126460/' },
+            { image: 'https://i.pinimg.com/736x/17/c2/93/17c293b53167ced13ff9d890b53e0d7a.jpg', name: 'Floresta Maldita', url: 'https://player.vimeo.com/video/1043978184', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-229209/' },
             { image: 'https://i.ibb.co/bLdq7Tz/20028692.webp', name: 'O Chamado', url: 'https://www.youtube.com/embed/gfsl6ufRwg8', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-42552/' },
-            { image: 'https://i.ibb.co/NS45WN0/20028692.webp', name: 'O Chamado 2', url: 'https://www.youtube.com/embed/OROECuP77Pk', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-54681/' },
-            { image: 'https://musicart.xboxlive.com/7/19ae3d00-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080', name: 'O Chamado 3', url: 'https://www.youtube.com/embed/_fnTLauSqQ0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-172648/' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSST4l4F0LxpdAu7qIT0n_byc33VxWaZFn5Og&s', name: 'O Chamado 4', url: 'https://www.youtube.com/embed/poAbFZ_aPR0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-310889/' },
+            { image: 'https://i.pinimg.com/736x/ba/6c/de/ba6cde00c9edebeab8401108667cab13.jpg', name: 'O Chamado 2', url: 'https://www.youtube.com/embed/OROECuP77Pk', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-54681/' },
+            { image: 'https://i.pinimg.com/736x/bb/18/0b/bb180b79c75fc5d1fbf39fe0555acb2a.jpg', name: 'O Chamado 3', url: 'https://www.youtube.com/embed/_fnTLauSqQ0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-172648/' },
+            { image: 'https://www.parisfilmes.com.br/wp-content/uploads/2023/03/o-chamado-4.jpg', name: 'O Chamado 4', url: 'https://www.youtube.com/embed/poAbFZ_aPR0', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-310889/' },
             { image: 'https://limontorrents.com/storage/2020/10/Parasita-1.jpg', name: 'Parasita', url: 'https://www.youtube.com/embed/hZiEQ1yy-vw', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-255238/' },
             { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/19/06/13/09/35/4216544.jpg', name: 'Misterios no Medit...', url: 'https://www.youtube.com/embed/hV2ujS5wg9w', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-178854/#:~:text=Nick%20Spitz%20(Adam%20Sandler)%20%C3%A9,que%20o%20ajude%20nesta%20mentira.' },
             { image: 'https://br.web.img2.acsta.net/medias/nmedia/18/87/29/71/19874039.jpg', name: 'Falando Grego', url: 'https://www.youtube.com/embed/8NQkbaW0Kfc', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-143114/' },
@@ -382,7 +387,7 @@
             { image: 'https://br.web.img3.acsta.net/pictures/19/06/19/21/18/1155729.jpg', name: 'Mãe Obsessiva', url: 'https://www.youtube.com/embed/A5KmRkojiWk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-275111/' },
             { image: 'https://br.web.img3.acsta.net/pictures/210/254/21025445_20130807223124967.jpg', name: 'Você de Novo', url: 'https://www.youtube.com/embed/o3itrvRjzH4', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-145709/' },
             { image: 'https://br.web.img3.acsta.net/medias/nmedia/18/95/94/11/20434898.jpg', name: 'Quando em Roma', url: 'https://www.youtube.com/embed/jWdJdg5xUQk', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-134125/' },
-            { image: 'https://www.atoupeira.com.br/wp-content/uploads/2022/02/case-comigo-poster-0102-692x1024.jpg', name: 'Case Comigo', url: 'https://www.youtube.com/embed/5MJFfWMo76k', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-273690/' },
+            { image: 'https://cinepop.com.br/wp-content/uploads/2022/02/case-comigo-2.png', name: 'Case Comigo', url: 'https://www.youtube.com/embed/5MJFfWMo76k', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-273690/' },
             { image: 'https://upload.wikimedia.org/wikipedia/pt/0/02/The_Proposal.jpg', name: 'A Proposta', url: 'https://www.youtube.com/embed/uhN5gVib8o8', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-129019/' },
             { image: 'https://images.justwatch.com/poster/199233617/s718/confessions-of-a-shopaholic.jpg', name: 'Os Delirios de...', url: 'https://www.youtube.com/embed/Zep4S4RkedQ', genre: 'Romance', adorocinema: 'https://www.adorocinema.com/filmes/filme-130604/' },
             { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/12/71/19872289.jpg', name: 'Noivas em Guerra', url: 'https://www.youtube.com/embed/1jNnN7rNUFQ', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-133173/' },
@@ -390,7 +395,7 @@
             { image: 'https://br.web.img3.acsta.net/pictures/14/08/27/01/12/229200.jpg', name: 'Columbus Circle', url: 'https://www.youtube.com/embed/dklvpdToqD0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-148360/' },
             { image: 'https://play-lh.googleusercontent.com/0gAWoFjAWcpTkly78DdOmOO76xDx2n3To-cJI5on8u55SEuncw0MMUMz6YfGXZnSmJrH', name: 'Horas de Desespero', url: 'https://www.youtube.com/embed/DbHdG32uplU', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-206754/' },
             { image: 'https://i.ibb.co/KmLvjBH/2790155.webp', name: 'Nas Profundezas do Mar...', url: 'https://www.youtube.com/embed/iC8V5fjYPeY', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-8529/' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdPGVrX6dRr99x0dcjvdiF_9Am-vJcDCIYdQ&s', name: 'Paranoia', url: 'https://www.youtube.com/embed/j_ZePpFOLME', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-111640/' },
+            { image: 'https://images.justwatch.com/poster/319558232/s718/paranoia.jpg', name: 'Paranoia', url: 'https://www.youtube.com/embed/j_ZePpFOLME', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-111640/' },
             { image: 'https://m.media-amazon.com/images/I/91UQCBxB+cL._AC_UF894,1000_QL80_.jpg', name: 'Invocação do Mal', url: 'https://www.youtube.com/embed/mTYM0fQ0foI', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-203607/' },
             { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/16/04/18/20/43/025084.jpg', name: 'Invocação do Mal 2', url: 'https://www.youtube.com/embed/8CLwPfV_kCA', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-222796/' },
             { image: 'https://irs.www.warnerbros.com.br/keyart-jpeg/movies/media/browser/CONJURING3_V_DD_KA_TT_2160x2880_300dpi_BR.jpg', name: 'Invocação do Mal 3: A...', url: 'https://www.youtube.com/embed/aGbMD72lcjE', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-248235/' },
@@ -399,12 +404,12 @@
             { image: 'https://images.justwatch.com/poster/210091350/s718/the-lie.jpg', name: 'Mentira Incondicional', url: 'https://www.youtube.com/embed/5eyjLYqWnIU', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-266900/' },
             { image: 'https://br.web.img3.acsta.net/pictures/16/03/28/19/29/126618.jpg', name: 'O Dono do Jogo', url: 'https://www.youtube.com/embed/hsFvXKvhXUk', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-178973/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/bd6cf0c13d15dd1f0c2416708a2cb17922f137cda3a3378c20756de760614574.jpg', name: 'A Noite do Jogo', url: 'https://www.youtube.com/embed/E2ELlt5-8qg', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-218449/' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzorxV83dLJzCUDcwn82PSTICzGMfEK21K7w&s', name: 'A Orfã', url: 'https://www.youtube.com/embed/nGiFlwaYw-0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-132783/' },
+            { image: 'https://i.pinimg.com/736x/08/1c/9c/081c9c8b5b21e722dfbdd87c9b9a4cc8.jpg', name: 'A Orfã', url: 'https://www.youtube.com/embed/nGiFlwaYw-0', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-132783/' },
             { image: 'https://br.web.img3.acsta.net/pictures/22/07/13/17/20/2336764.png', name: 'A Orfã 2: A Ori...', url: 'https://www.youtube.com/embed/Ul5xkI2GzcA', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-287653/' },
             { image: 'https://play-lh.googleusercontent.com/8Mae0jOK0iG5cT3NnEqp9BI8KvfnTskHJHQAXCWHOl3rngJ4iYWl5DP9145jM8ag57uZfqUl-nARTZ2woA', name: 'Premonição', url: 'https://www.youtube.com/embed/lCNvcpeX_3c', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-25096/' },
             { image: 'https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/98/07/20172668.jpg', name: 'O Fugitivo', url: 'https://www.youtube.com/embed/DljD9NH85I4', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-8257/' },
             { image: 'https://images.justwatch.com/poster/249960933/s718/nunca-mais.jpg', name: 'Nunca Mais', url: 'https://www.youtube.com/embed/QJyyv3_ih0o', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-28999/' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2N_I_jiNRxgIlZMwRp8EC28AsUaeNDM5pLQ&s', name: 'Naufrágo', url: 'https://www.youtube.com/embed/bJbWLOF6axQ', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-27770/' },
+            { image: 'https://i.pinimg.com/736x/d3/1e/e7/d31ee7927960ac6e4065be18f830f83d.jpg', name: 'Naufrágo', url: 'https://www.youtube.com/embed/bJbWLOF6axQ', genre: 'Drama', adorocinema: 'https://www.adorocinema.com/filmes/filme-27770/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/f250e226eb729d54fd4c5d3c020b1f5e3bb6f98bc483de751d80b17070d5dec8.jpg', name: 'Corra', url: 'https://www.youtube.com/embed/1qphuplJ4W4', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-241160/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/a0be5dbed6b86e0d8dcf8eb57217954275ff1063e07a0c1584de0cc7fc6661fa.jpg', name: 'Premonições', url: 'https://www.youtube.com/embed/QQsVC-sGG3c', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-108684/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/76f9230b3a49f068224077be6913d8f3ed740dcb0e75f55a920dea412f43508b.jpg', name: 'Lenda Urbana', url: 'https://www.youtube.com/embed/qBVBCwCWnl4', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-13527/' },
@@ -415,7 +420,7 @@
             { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZ22i_mVSxtZWbHsR5MvV6YJZqp_ASy0l5w&s', name: 'Sherlock Holmes', url: 'https://www.youtube.com/embed/fKDJQzk6tS8', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-127179/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/655a3800f867508deda9e0f46ecf1aba01faead4dd851e137114667a9037de96.jpg', name: 'Sherlock Holmes 2: O...', url: 'https://www.youtube.com/embed/budrUrVerGE', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-173048/' },
             { image: 'https://i.ibb.co/z8Rcpv1/Picture1.png', name: 'Moana: Um Mar...', url: 'https://www.youtube.com/embed/QB5GSKfPuUA', genre: 'Animação', adorocinema: 'https://www.adorocinema.com/filmes/filme-225958/' },
-            { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWKomvqwTHUWngkdfAf5ZOswE6ZT1eCKfJEQ&s', name: 'Mansão Mal Assombrada', url: 'https://www.youtube.com/embed/wgx9aX6npps', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-44237/' },
+            { image: 'https://i.pinimg.com/736x/41/1c/1a/411c1a39f9c7954770af976418ac3c4b.jpg', name: 'Mansão Mal Assombrada', url: 'https://www.youtube.com/embed/wgx9aX6npps', genre: 'Aventura', adorocinema: 'https://www.adorocinema.com/filmes/filme-44237/' },
             { image: 'https://m.media-amazon.com/images/S/pv-target-images/8fcd448e2a8f1c70b355655d7c58d2fc6089b64324f74636d8c72183b1806a21.jpg', name: 'Cadê os Morgans?', url: 'https://www.youtube.com/embed/jKTy-Aou3uI', genre: 'Comédia', adorocinema: 'https://www.adorocinema.com/filmes/filme-140335/' },
             { image: 'https://play-lh.googleusercontent.com/9429Zy-TmLZC7JwBN0avoyY-NLUcLo7t9-wvKZuAUfif7CmDuQGNlI5OTjPyCAucGGn1', name: 'Medo Profundo: O Se...', url: 'https://www.youtube.com/embed/WUTiUz9v0vk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-258790/' },
             { image: 'https://play-lh.googleusercontent.com/w8zAyKwj24pLoxg2r2M6j5bznkH6pqhkHBvOBHs2GY8xqeIVgzxjx8QBSGAQVOUJskN8=w240-h480-rw', name: 'A Casa Amaldiçoada', url: 'https://www.youtube.com/embed/KziGatOL7aQ', genre: 'Terror', adorocinema: 'https://www.adorocinema.com/filmes/filme-20888/' },
@@ -438,79 +443,66 @@
             { image: 'https://i.pinimg.com/736x/4a/81/42/4a8142ad810129b16697835fa629af56.jpg', name: 'Eu sei O Que Vocês...', url: 'https://www.youtube.com/embed/X90yND9SDXk', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-3546/' },            
             { image: 'https://br.web.img2.acsta.net/c_310_420/pictures/14/10/01/23/39/584481.jpg', name: 'Eu Ainda sei O Que...', url: 'https://www.youtube.com/embed/Irt--9YbdJg', genre: 'Ação', adorocinema: 'https://www.adorocinema.com/filmes/filme-26262/' },            
             { image: 'https://m.media-amazon.com/images/M/MV5BZmU3YTM5NTgtOTFmZS00OTI4LTgzZmMtODcyMDgxYzBkMGRjXkEyXkFqcGc@._V1_FMjpg_UX550_.jpg', name: 'Casamento Por Internet', url: 'https://www.youtube.com/embed/VH6bBO93z0o', genre: 'Drama', adorocinema: 'https://filmow.com/casamento-por-internet-t70683/ficha-tecnica/' },            
-            { image: 'https://play-lh.googleusercontent.com/proxy/5418Y7XjZZQk6-8SE5y_N9VIGh4skvRMW8dvtgqzrhpUhwDHZlTlJbU-hFOW8613ArEZkOOl4ni2QkRFte0Rr9FMTGasif_0Ay5h5KULvJam6Pm2BTh8PC3wVyYwDkW-4a225fofGfJ62l2hQNFFha6dsTcSxp2MKJg7HQ=w240-h480-rw', name: 'Amor na Terra da...', url: 'https://multiembed.mov/directstream.php?video_id=tt1526745', genre: 'Drama', adorocinema: 'https://filmow.com/amor-na-terra-da-abobora-t29516/ficha-tecnica/' },            
+            { image: 'https://i.pinimg.com/736x/78/80/16/788016bd4fc4de8fb9bde1620e193782.jpg', name: 'Amor na Terra da...', url: 'https://multiembed.mov/directstream.php?video_id=tt1526745', genre: 'Drama', adorocinema: 'https://filmow.com/amor-na-terra-da-abobora-t29516/ficha-tecnica/' },            
 
             
         ];
 
-        const container = document.querySelector('.container');
+        const gallery = document.getElementById('gallery');
         const videoModal = document.getElementById('videoModal');
         const videoFrame = document.getElementById('videoFrame');
         const infoModal = document.getElementById('infoModal');
         const infoFrame = document.getElementById('infoFrame');
-
         function renderPosters(data) {
-            container.innerHTML = '';
+            gallery.innerHTML = '';
             data.forEach(poster => {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('poster-wrapper');
-
-                // Imagem que servirá como botão "AdoroCinema"
+                // Ícone do AdoroCinema
                 const adoradoCinemaImg = document.createElement('img');
                 adoradoCinemaImg.src = "https://i.ibb.co/hJww2LWr/logo-main-6419f574.png";
                 adoradoCinemaImg.alt = "AdoroCinema Icon";
-                adoradoCinemaImg.style.cursor = "pointer";
-                // Reduzindo o tamanho da logo:
-                adoradoCinemaImg.style.width = "120px";
-                adoradoCinemaImg.style.height = "auto";
-                adoradoCinemaImg.style.marginBottom = "10px";
+                adoradoCinemaImg.classList.add('adorocinema-icon');
                 adoradoCinemaImg.addEventListener('click', () => openInfoModal(poster.adorocinema));
-
                 // Poster do filme
                 const posterElement = document.createElement('div');
                 posterElement.classList.add('poster');
-                posterElement.style.backgroundImage = `url(${poster.image})`;
-
+                const posterImage = document.createElement('img');
+                posterImage.src = poster.image;
+                posterImage.alt = poster.name;
+                posterElement.appendChild(posterImage);
                 const playIcon = document.createElement('div');
                 playIcon.classList.add('poster-icon');
                 posterElement.appendChild(playIcon);
-
                 // Nome do filme
                 const posterName = document.createElement('div');
                 posterName.classList.add('poster-name');
                 posterName.innerText = poster.name;
-
-                // Adiciona os elementos na ordem desejada
+                // Evento de clique no poster
+                posterElement.addEventListener('click', () => openModal(poster.url));
+                // Montagem do wrapper
                 wrapper.appendChild(adoradoCinemaImg);
                 wrapper.appendChild(posterElement);
                 wrapper.appendChild(posterName);
-
-                posterElement.addEventListener('click', () => openModal(poster.url));
-
-                container.appendChild(wrapper);
+                gallery.appendChild(wrapper);
             });
         }
-
         function openModal(videoUrl) {
             videoModal.style.display = 'flex';
             videoFrame.src = videoUrl;
         }
-
         function closeModal() {
             videoModal.style.display = 'none';
             videoFrame.src = '';
         }
-
         function openInfoModal(infoUrl) {
             infoModal.style.display = 'flex';
             infoFrame.src = infoUrl;
         }
-
         function closeInfoModal() {
             infoModal.style.display = 'none';
             infoFrame.src = '';
         }
-
         function searchGames() {
             const searchQuery = document.getElementById('search').value.toLowerCase();
             const filteredPosters = posters.filter(poster =>
@@ -519,99 +511,28 @@
             );
             renderPosters(filteredPosters);
         }
-
         function filterByGenre(genre) {
             const filteredPosters = genre === 'all' ? posters : posters.filter(poster => poster.genre === genre);
             renderPosters(filteredPosters);
         }
-
         renderPosters(posters);
     </script>
-
-       <!-- Bloco de código independente para efeito sonoro de hover e clique -->
+    <!-- Efeito sonoro -->
     <audio id="hover-sound" src="https://www.soundjay.com/buttons/button-11.wav" preload="auto"></audio>
     <audio id="click-sound" src="FADE.mp3" preload="auto"></audio>
-
     <script>
         function playHoverSound() {
             const sound = document.getElementById('hover-sound');
             sound.play();
         }
-
         function playClickSound() {
             const sound = document.getElementById('click-sound');
             sound.play();
         }
-
         document.querySelectorAll('.poster').forEach(poster => {
             poster.addEventListener('mouseenter', playHoverSound);
             poster.addEventListener('click', playClickSound);
         });
     </script>
-</body>
-</html>
-<!-- Bloco de código para o efeito de brilho colorido como arco-íris -->
-<style>
-    /* Animação de brilho arco-íris */
-@keyframes brilhoArcoIris {
-    0% {
-        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8), 
-                    0 0 50px rgba(148, 0, 211, 0.6), 
-                    0 0 70px rgba(148, 0, 211, 0.4); /* Lilás */
-    }
-    25% {
-        box-shadow: 0 0 30px rgba(0, 0, 255, 0.8), 
-                    0 0 50px rgba(0, 0, 255, 0.6), 
-                    0 0 70px rgba(0, 0, 255, 0.4); /* Azul */
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(135, 206, 250, 0.8), 
-                    0 0 50px rgba(135, 206, 250, 0.6), 
-                    0 0 70px rgba(135, 206, 250, 0.4); /* Azul Celeste */
-    }
-    75% {
-        box-shadow: 0 0 30px rgba(238, 130, 238, 0.8), 
-                    0 0 50px rgba(238, 130, 238, 0.6), 
-                    0 0 70px rgba(238, 130, 238, 0.4); /* Violeta */
-    }
-    100% {
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 
-                    0 0 50px rgba(255, 255, 255, 0.6), 
-                    0 0 70px rgba(255, 255, 255, 0.4); /* Branco */
-        }
-    }
-
-/* Classe que aplica o efeito de brilho arco-íris */
-.brilho-arco-iris {
-    animation: brilhoArcoIris 20s infinite alternate; /* Animação de brilho */
-    border: 20px solid transparent; /* Define uma borda maior */
-    border-radius: 5px; /* Opcional: bordas arredondadas */
-}
-
-</style>
-
-<!-- O iframe que vai ganhar o efeito de brilho arco-íris -->
-<iframe id="videoFrame" src="" width="560" height="315" frameborder="0.9" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<script>
-    // Função para adicionar o efeito de brilho arco-íris ao iframe quando for aberto
-    function applyRainbowGlowEffect() {
-        const iframe = document.getElementById('videoFrame');
-        iframe.classList.add('brilho-arco-iris'); // Adiciona a classe de brilho arco-íris
-    }
-
-    // Adicionar o evento para quando o iframe for clicado ou exibido
-    document.getElementById('videoFrame').addEventListener('load', applyRainbowGlowEffect);
-</script>
-
-<!-- Código fornecido pelo site -->
-    <style type="text/css">
-        * {
-            cursor: url(https://cur.cursors-4u.net/cursors/cur-2/cur116.cur), auto !important;
-        }
-    </style>
-    <a href="https://www.cursors-4u.com/cursor/2008/12/17/cool-blue-outer-glow-pointer.html" target="_blank" title="Cool Blue Outer Glow Pointer">
-        <img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Cool Blue Outer Glow Pointer" style="position:absolute; top: 0px; right: 0px;" />
-    </a>
 </body>
 </html>
